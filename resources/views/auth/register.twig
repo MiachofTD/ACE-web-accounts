@@ -1,5 +1,7 @@
 {% extends 'layout' %}
 
+{% block title %}Create Account{% endblock %}
+
 {% block bodyclass %}register{% endblock %}
 
 {% block headerScripts %}
@@ -14,8 +16,8 @@
     <div class="row col-md-4 col-md-offset-4">
         <form action="{{ route( 'auth.register' ) }}" method="POST" id="registration-form">
             <div class="form-group">
-                <label for="account">Username:</label>
-                <input type="text" name="account" id="account" class="form-control" placeholder="Username" required />
+                <label for="account">Account:</label>
+                <input type="text" name="account" id="account" class="form-control" placeholder="Account" required />
             </div>
 
             <div class="form-group">

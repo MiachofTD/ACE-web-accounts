@@ -11,15 +11,15 @@ body.register form {
     padding-right: 15px;
 }
 
+body.register #messages {
+    padding-top: 30px;
+    float: left;
+}
+
 .top-buffer {
     margin-top: 150px;
 }
 
 .white-text {
     color: #fff;
-}
-
-#messages {
-    padding-top: 30px;
-    float: left;
 }

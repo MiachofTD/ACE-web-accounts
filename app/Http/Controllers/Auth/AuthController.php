@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\RegistrationRequest;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -35,29 +33,12 @@ class AuthController extends Controller
 
     /**
      * Create a new authentication controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
-        $this->middleware( $this->guestMiddleware(), [ 'except' => 'logout' ] );
-    }
+        parent::__construct();
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array $data
-     *
-     * @return \Illuminate\Validation\Validator
-     */
-    protected function validator( array $data )
-    {
-        return Validator::make( $data, [
-            'account' => 'required|max:255|unique:account',
-            'password' => 'required|min:6',
-            'g-recaptcha-response' => 'required'
-//            'email' => 'required|email|max:255|unique:users',
-        ] );
+        $this->middleware( $this->guestMiddleware(), [ 'except' => 'logout' ] );
     }
 
     /**
@@ -87,11 +68,11 @@ class AuthController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param RegistrationRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function register( Request $request )
+    public function register( RegistrationRequest $request )
     {
         $validator = $this->validator( $request->except( '_token' ) );
         if ( $validator->passes() ) {

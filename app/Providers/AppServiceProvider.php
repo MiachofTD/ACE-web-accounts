@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Services\Sha256Hasher;
+use App\Services\CustomValidators;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Validator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Validator::resolver( function ( $translator, $data, $rules, $messages ) {
+            return new CustomValidators( $translator, $data, $rules, $messages );
+        } );
     }
 
     /**
