@@ -30,7 +30,7 @@ class RegistrationRequest extends FormRequest
     public function rules()
     {
         return [
-            'account' => 'required|max:32|lowercase_alpha_dash|unique:account',
+            'account' => 'required|min:3|max:32|lowercase_alpha_dash|unique:account',
             'password' => 'required|min:6',
             'g-recaptcha-response' => 'required',
             'email' => 'sometimes|email'
