@@ -153,7 +153,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        TwigBridge\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -209,6 +209,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Twig' => TwigBridge\Facade\Twig::class,
     ],
 
 ];

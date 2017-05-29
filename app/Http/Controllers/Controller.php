@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Route;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -11,4 +12,33 @@ use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 class Controller extends BaseController
 {
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
+
+    /**
+     * Controller constructor.
+     */
+    public function __construct()
+    {
+        $this->viewShare();
+    }
+
+    /**
+     * @return $this
+     */
+    protected function viewShare()
+    {
+        view()->share( 'currentRoute', Route::currentRouteName() );
+
+        $messages[ 'errors' ] = session()->get( 'message.error' );
+        $messages[ 'success' ] = session()->get( 'message.success' );
+        $messages[ 'warning' ] = session()->get( 'message.warning' );
+
+        //Make sure we clear out all messages from the session
+        session()->forget( 'message.error' );
+        session()->forget( 'message.success' );
+        session()->forget( 'message.warning' );
+
+        view()->share( 'messages', $messages );
+
+        return $this;
+    }
 }

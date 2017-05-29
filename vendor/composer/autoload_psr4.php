@@ -8,6 +8,8 @@ $baseDir = dirname($vendorDir);
 return array(
     'XdgBaseDir\\' => array($vendorDir . '/dnoegel/php-xdg-base-dir/src'),
     'Twig\\Extensions\\' => array($vendorDir . '/twig/extensions/src'),
+    'TwigBridge\\Tests\\' => array($vendorDir . '/rcrowe/twigbridge/tests'),
+    'TwigBridge\\' => array($vendorDir . '/rcrowe/twigbridge/src'),
     'Symfony\\Polyfill\\Util\\' => array($vendorDir . '/symfony/polyfill-util'),
     'Symfony\\Polyfill\\Php56\\' => array($vendorDir . '/symfony/polyfill-php56'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),

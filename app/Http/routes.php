@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get( '/', function () {
+    return view( 'welcome' );
+} );
+
+Route::get( '/auth/register', [ 'as' => 'auth.register', 'uses' => 'Auth\AuthController@register' ] );

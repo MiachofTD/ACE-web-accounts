@@ -13,9 +13,9 @@ class ComposerStaticInit95d661e68b0bd0a611fb7345446a2ffc
         'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
-        '4a1f389d6ce373bda9e57857d3b61c84' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/helpers.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        '4a1f389d6ce373bda9e57857d3b61c84' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/helpers.php',
         'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
     );
 
@@ -27,6 +27,8 @@ class ComposerStaticInit95d661e68b0bd0a611fb7345446a2ffc
         'T' => 
         array (
             'Twig\\Extensions\\' => 16,
+            'TwigBridge\\Tests\\' => 17,
+            'TwigBridge\\' => 11,
         ),
         'S' => 
         array (
@@ -96,6 +98,14 @@ class ComposerStaticInit95d661e68b0bd0a611fb7345446a2ffc
         'Twig\\Extensions\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/extensions/src',
+        ),
+        'TwigBridge\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rcrowe/twigbridge/tests',
+        ),
+        'TwigBridge\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/rcrowe/twigbridge/src',
         ),
         'Symfony\\Polyfill\\Util\\' => 
         array (
