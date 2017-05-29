@@ -15,10 +15,11 @@ class CustomValidators extends Validator
     /**
      * Validate that an attribute contains only lowercase alpha-numeric characters, dashes, and underscores.
      *
+     * @see Validator:validateAlphaDash for default alpha_dash functionality
+     *
      * @param string $attribute Applied Field Name
      * @param string $value Applied Field Value
-     * @param array $parameters Validation rule(s):
-     *   [0] =
+     * @param array $parameters Validation rule(s)
      * @param Validator $validator The full validation object
      *
      * @return boolean
@@ -29,7 +30,7 @@ class CustomValidators extends Validator
             return false;
         }
         elseif ( $value != strtolower( $value ) ) {
-
+            return false;
         }
 
         return preg_match( '/^[\pL\pM\pN_-]+$/u', $value ) > 0;

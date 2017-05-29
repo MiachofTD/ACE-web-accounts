@@ -74,13 +74,8 @@ class AuthController extends Controller
      */
     public function register( RegistrationRequest $request )
     {
-        $validator = $this->validator( $request->except( '_token' ) );
-        if ( $validator->passes() ) {
-            $this->create( $request->only( [ 'account', 'password' ] ) );
+        $this->create( $request->only( [ 'account', 'password' ] ) );
 
-            return redirect()->route( 'auth.register' )->with( 'message.success', 'You have successfully registered.' );
-        }
-
-        return redirect()->back()->withErrors( $validator->errors() );
+        return redirect()->route( 'auth.register' )->with( 'message.success', 'You have successfully registered.' );
     }
 }
