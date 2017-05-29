@@ -10,6 +10,12 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         {#<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />#}
 
+        <script type="text/javascript">
+            window.Laravel = {
+                'csrfToken': '{{ csrf_token()|json_encode }}'
+            };
+        </script>
+
         {% block headerStyles %}{% endblock %}
         {% block headerScripts %}{% endblock %}
     </head>
@@ -18,7 +24,7 @@
         <div class="container">
             <header>
                 {#% include 'navigation' %#}
-                {#% include 'messages' %#}
+                {% include 'messages' %}
             </header>
 
             {% block content %}{% endblock %}

@@ -18,3 +18,8 @@ body.register form {
 .white-text {
     color: #fff;
 }
+
+#messages {
+    padding-top: 30px;
+    float: left;
+}

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use Validator;
+use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\RegistrationRequest;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -37,41 +40,66 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->middleware( $this->guestMiddleware(), [ 'except' => 'logout' ] );
     }
 
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @param  array $data
+     *
+     * @return \Illuminate\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator( array $data )
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-        ]);
+        return Validator::make( $data, [
+            'account' => 'required|max:255|unique:account',
+            'password' => 'required|min:6',
+            'g-recaptcha-response' => 'required'
+//            'email' => 'required|email|max:255|unique:users',
+        ] );
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
+     *
      * @return User
      */
-    protected function create(array $data)
+    protected function create( array $data )
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        return User::create( [
+            'account' => $data[ 'account' ],
+            'password' => bcrypt( $data[ 'password' ] ),
+            'accesslevel' => env( 'ACCESS_LEVEL', 5 ),
+            'salt' => Hash::make( rand( 0, 9999999 ) ),
+//            'email' => $data[ 'email' ],
+        ] );
     }
 
-    public function register()
+    /**
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function signup()
     {
         return view()->make( 'auth.register', [] );
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function register( Request $request )
+    {
+        $validator = $this->validator( $request->except( '_token' ) );
+        if ( $validator->passes() ) {
+            $this->create( $request->only( [ 'account', 'password' ] ) );
+
+            return redirect()->route( 'auth.register' )->with( 'message.success', 'You have successfully registered.' );
+        }
+
+        return redirect()->back()->withErrors( $validator->errors() );
     }
 }

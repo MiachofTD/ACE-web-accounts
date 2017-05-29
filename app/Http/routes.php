@@ -15,4 +15,11 @@ Route::get( '/', function () {
     return view( 'welcome' );
 } );
 
-Route::get( '/auth/register', [ 'as' => 'auth.register', 'uses' => 'Auth\AuthController@register' ] );
+//Login
+//Route::get( '/login' );
+//Route::post( '/login' );
+//Route::get( '/logout' );
+
+//Registration
+Route::get( '/register', [ 'as' => 'auth.register', 'uses' => 'Auth\AuthController@signup' ] );
+Route::post( '/register', [ 'uses' => 'Auth\AuthController@register' ] );
