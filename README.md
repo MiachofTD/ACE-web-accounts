@@ -1,5 +1,11 @@
 # Laravel PHP Framework
 
+## 05/30/2017 MiachofTD
+
+Moved download text from register.twig to login.twig and changed it to black text via new app-login.css file.  
+Also created new layout-login.twig to call to new css file.  
+Adjusted the app.css just for register.twig.
+
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
 [![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
 [![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)

@@ -1,4 +1,4 @@
-{% extends 'layout' %}
+{% extends 'layout-login' %}
 
 {% block title %}Log in{% endblock %}
 
@@ -24,9 +24,14 @@
 
                         <div class="form-group">
                             {{ csrf_field() }}
-                            <input type="submit" value="Sign In" class="form-control btn btn-primary" /><br /><br />
+                            <input type="submit" value="Login" class="form-control btn btn-primary" /><br /><br />
                         </div>
                     </form>
+					        <span class="black-text">
+            <br />You can download <a href="#">this batch file</a>
+            (Be sure to change the username and password in the file to what you registered with)
+            or add ac.aka-steve.com:9000 to your ThwargLauncher ACEServerList.xml file.
+        </span>
                 </div>
             </div>
         </div>
