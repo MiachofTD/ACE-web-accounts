@@ -27,8 +27,12 @@ body {
     float: left;
 }
 
-.top-buffer-auth {
-    margin-top: 170px;
+.top-buffer-reg-auth {
+    margin-top: 150px;
+}
+
+.top-buffer-login-auth {
+    margin-top: 180px;
 }
 
 .top-buffer {
@@ -37,4 +41,8 @@ body {
 
 .white-text {
     color: #fff;
+}
+
+.black-text {
+    color: #000;
 }
