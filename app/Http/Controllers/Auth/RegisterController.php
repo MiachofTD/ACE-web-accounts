@@ -67,6 +67,6 @@ class RegisterController extends Controller
     {
         $this->create( $request->only( [ 'account', 'password' ] ) );
 
-        return redirect()->route( 'auth.register' )->with( 'message.success', 'You have successfully registered.' );
+        return redirect()->route( 'auth.login' )->with( 'message.success', 'You have successfully registered.' );
     }
 }
