@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\RegistrationRequest;
+use App\Auth\AuthenticatesUsers as Username;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
-class AuthController extends Controller
+class LoginController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,9 @@ class AuthController extends Controller
     |
     */
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    use AuthenticatesAndRegistersUsers, ThrottlesLogins, Username {
+        Username::loginUsername insteadof AuthenticatesAndRegistersUsers;
+    }
 
     /**
      * Where to redirect users after login / registration.
@@ -42,40 +44,20 @@ class AuthController extends Controller
     }
 
     /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array $data
-     *
-     * @return User
-     */
-    protected function create( array $data )
-    {
-        return User::create( [
-            'account' => $data[ 'account' ],
-            'password' => bcrypt( $data[ 'password' ] ),
-            'accesslevel' => env( 'ACCESS_LEVEL', 5 ),
-            'salt' => Hash::make( rand( 0, 9999999 ) ),
-//            'email' => $data[ 'email' ],
-        ] );
-    }
-
-    /**
      * @return \Illuminate\Contracts\View\View
      */
-    public function signup()
+    public function index()
     {
-        return view()->make( 'auth.register', [] );
+        return view()->make( 'auth.login', [] );
     }
 
     /**
-     * @param RegistrationRequest $request
-     *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function register( RegistrationRequest $request )
+    public function logout()
     {
-        $this->create( $request->only( [ 'account', 'password' ] ) );
+        auth()->logout();
 
-        return redirect()->route( 'auth.register' )->with( 'message.success', 'You have successfully registered.' );
+        return redirect()->route( 'auth.login' );
     }
 }

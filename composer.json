@@ -14,13 +14,15 @@
         "laravelcollective/html": "^5.2",
         "barryvdh/laravel-debugbar": "^2.0",
         "barryvdh/laravel-ide-helper": "^2.2",
-        "rcrowe/twigbridge": "^0.9.*"
+        "rcrowe/twigbridge": "^0.9"
     },
     "autoload": {
         "classmap": [
             "database"
         ],
-        "files": [],
+        "files": [
+            "helpers/model.php"
+        ],
         "psr-4": {
             "App\\": "app/"
         }

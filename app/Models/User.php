@@ -45,12 +45,4 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'salt', 'accesslevel',
     ];
-
-    /**
-     * @param string $pass
-     */
-    public function setPasswordAttribute( $pass )
-    {
-        $this->attributes[ 'password' ] = Hash::make( $pass );
-    }
 }

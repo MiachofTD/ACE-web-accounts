@@ -14,6 +14,11 @@ class Controller extends BaseController
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
 
     /**
+     * @var array
+     */
+    protected $context = [];
+
+    /**
      * Controller constructor.
      */
     public function __construct()
@@ -38,6 +43,19 @@ class Controller extends BaseController
         session()->forget( 'message.warning' );
 
         view()->share( 'messages', $messages );
+
+        return $this;
+    }
+
+    /**
+     * @param string $key
+     * @param string $value
+     *
+     * @return $this
+     */
+    protected function addContext( $key, $value )
+    {
+        $this->context[ $key ] = $value;
 
         return $this;
     }
