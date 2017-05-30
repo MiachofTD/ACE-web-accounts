@@ -27,8 +27,12 @@ body {
     float: left;
 }
 
-.top-buffer-auth {
+.top-buffer-reg-auth {
     margin-top: 150px;
+}
+
+.top-buffer-login-auth {
+    margin-top: 180px;
 }
 
 .top-buffer {
