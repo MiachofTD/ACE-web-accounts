@@ -20,4 +20,7 @@ Route::get( '/logout', [ 'as' => 'auth.logout', 'uses' => 'Auth\LoginController@
 Route::get( '/register', [ 'as' => 'auth.register', 'uses' => 'Auth\RegisterController@index' ] );
 Route::post( '/register', [ 'uses' => 'Auth\AuthController@register' ] );
 
-Route::get( '/' );
+Route::group( [ 'middleware' => 'check.login' ], function () {
+    Route::get( '/', [ 'as' => 'dashboard', 'uses' => 'HomeController@index' ] );
+
+});
