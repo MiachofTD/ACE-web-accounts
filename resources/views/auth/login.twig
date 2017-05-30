@@ -1,0 +1,34 @@
+{% extends 'layout' %}
+
+{% block title %}Log in{% endblock %}
+
+{% block bodyclass %}login{% endblock %}
+
+{% block content %}
+    <div class="row top-buffer">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2>Login</h2>
+
+                    <form action="{{ route( 'auth.login' ) }}" method="POST" id="registration-form">
+                        <div class="form-group">
+                            <label for="account">Account:</label>
+                            <input type="text" name="account" id="account" class="form-control" placeholder="Account" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Password" required />
+                        </div>
+
+                        <div class="form-group">
+                            {{ csrf_field() }}
+                            <input type="submit" value="Sign Up" class="form-control btn btn-primary" /><br /><br />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -10,41 +10,49 @@
 
 {% block content %}
     <div class="row top-buffer">
-        <h2 class="text-center">Register</h2>
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2>Register</h2>
+
+                    <form action="{{ route( 'auth.register' ) }}" method="POST" id="registration-form">
+                        <div class="form-group">
+                            <label for="account">Account Name:</label>
+                            <input type="text" name="account" id="account" class="form-control" placeholder="Account" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address:</label>
+                            <input type="text" name="email" id="email" class="form-control" placeholder="Email Address" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Password" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="verify-password">Verify Password:</label>
+                            <input type="password" name="verify_password" id="verify-password" class="form-control" placeholder="Verify Password" required />
+                        </div>
+
+                        <div class="form-group">
+                            {{ csrf_field() }}
+                            <input type="submit" value="Sign Up" class="form-control btn btn-primary" /><br /><br />
+
+                            {#<div class="g-recaptcha" data-sitekey="6LeZPiMUAAAAAGA-Qr7dELlu73gyAWHX-sG7q2RA"></div>#}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="row col-md-4 col-md-offset-4">
-        <form action="{{ route( 'auth.register' ) }}" method="POST" id="registration-form">
-            <div class="form-group">
-                <label for="account">Account:</label>
-                <input type="text" name="account" id="account" class="form-control" placeholder="Account" required />
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" name="password" id="password" class="form-control" placeholder="Password" required />
-            </div>
-
-            {# for when we add email #}
-            {#<div class="form-group">
-                <label for="email">Email Address:</label>
-                <input type="text" name="email" id="email" class="form-control" placeholder="Email Address" required />
-            </div>#}
-
-            <div class="form-group">
-                {{ csrf_field() }}
-                <input type="submit" value="Sign Up" class="form-control btn btn-primary" /><br /><br />
-
-                {#<div class="g-recaptcha" data-sitekey="6LeZPiMUAAAAAGA-Qr7dELlu73gyAWHX-sG7q2RA"></div>#}
-            </div>
-
-            <div class="form-group">
-                <span class="white-text">
-                    <br />You can download <a href="#">this batch file</a>
-                    <br />(Be sure to change the username and password in the file to what you registered with)
-                    <br />or add ac.aka-steve.com:9000 to your ThwargLauncher ACEServerList.xml file.
-                </span>
-            </div>
-        </form>
+    <div class="row col-md-6 col-md-offset-3">
+        <span class="white-text">
+            <br />You can download <a href="#">this batch file</a>
+            <br />(Be sure to change the username and password in the file to what you registered with)
+            <br />or add ac.aka-steve.com:9000 to your ThwargLauncher ACEServerList.xml file.
+        </span>
     </div>
 {% endblock %}

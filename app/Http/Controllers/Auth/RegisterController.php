@@ -6,10 +6,9 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegistrationRequest;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
-class AuthController extends Controller
+class RegisterController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -22,14 +21,7 @@ class AuthController extends Controller
     |
     */
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-
-    /**
-     * Where to redirect users after login / registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/';
+    use AuthenticatesAndRegistersUsers;
 
     /**
      * Create a new authentication controller instance.
@@ -50,19 +42,18 @@ class AuthController extends Controller
      */
     protected function create( array $data )
     {
-        return User::create( [
+        return user()->create( [
             'account' => $data[ 'account' ],
             'password' => bcrypt( $data[ 'password' ] ),
             'accesslevel' => env( 'ACCESS_LEVEL', 5 ),
             'salt' => Hash::make( rand( 0, 9999999 ) ),
-//            'email' => $data[ 'email' ],
         ] );
     }
 
     /**
      * @return \Illuminate\Contracts\View\View
      */
-    public function signup()
+    public function index()
     {
         return view()->make( 'auth.register', [] );
     }

@@ -1,17 +1,28 @@
-body.register {
-    background: url('../img/ac-background.jpg') no-repeat center center fixed;
+body {
+    background: url('../img/stats-background.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
 
-body.register form {
-    padding-left: 10px;
-    padding-right: 15px;
+.register, .login {
+    background: url('../img/login-background.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
-body.register #messages {
+.register h2, .login h2 {
+    margin-top: inherit;
+}
+
+.register .panel-default, .login .panel-default {
+    background-color: rgba(255, 255, 255, 0.6)
+}
+
+.register #messages, .login #messages {
     padding-top: 30px;
     float: left;
 }
