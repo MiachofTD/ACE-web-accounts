@@ -2,6 +2,7 @@
 
 namespace Ace\Models;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
@@ -72,6 +73,31 @@ class Character extends Model
         }
 
         return $this->{$table . 'Properties'};
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return string|Carbon
+     */
+    public function property( $name )
+    {
+        $prop = config( 'character.' . $name, [] );
+
+        if ( empty( $prop ) ) {
+            return '';
+        }
+
+        $property = $this->getProperty( $prop[ 'id' ], $prop[ 'table' ] );
+
+        if ( strpos( $name, 'date' ) !== false ) {
+            return Carbon::parse( $property );
+        }
+        else if ( array_has( $prop, 'options' ) ) {
+            return array_get( $prop[ 'options' ], $property, '' );
+        }
+
+        return $property;
     }
 
     /**
