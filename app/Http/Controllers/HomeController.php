@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Ace\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use Ace\Models\Character;
 
 class HomeController extends Controller
 {
@@ -15,6 +13,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return response()->view( 'dashboard' );
+        $characters = Character::where( 'accountId', auth()->user()->id )->get();
+        $this->addContext( 'characters', $characters );
+
+        return response()->view( 'dashboard', $this->context );
     }
 }

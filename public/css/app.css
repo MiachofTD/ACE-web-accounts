@@ -14,6 +14,10 @@ body {
     background-size: cover;
 }
 
+.navbar-default {
+    background-color: #f9f9f9;
+}
+
 .register h2, .login h2 {
     margin-top: inherit;
 }
@@ -27,16 +31,16 @@ body {
     float: left;
 }
 
-.top-buffer-reg-auth {
+.top-buffer-register {
     margin-top: 150px;
 }
 
-.top-buffer-login-auth {
+.top-buffer-login {
     margin-top: 180px;
 }
 
 .top-buffer {
-    margin-top: 30px;
+    margin-top: 70px;
 }
 
 .white-text {

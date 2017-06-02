@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Models;
+namespace Ace\Models;
 
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -43,6 +42,53 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'salt', 'accesslevel',
+        'password', 'remember_token', 'salt',
     ];
+
+    /**
+     * @var int|string
+     */
+    protected $accessLevel;
+
+    /**
+     * @var array
+     */
+    protected $accessLevels = [
+        0 => [
+            'name' => 'Player',
+            'prefix' => '',
+        ],
+        1 => [
+            'name' => 'Advocate',
+            'prefix' => '',
+        ],
+        2 => [
+            'name' => 'Sentinel',
+            'prefix' => 'Sentinel',
+        ],
+        3 => [
+            'name' => 'Envoy',
+            'prefix' => 'Envoy',
+        ],
+        4 => [
+            'name' => 'Developer',
+            'prefix' => '',
+        ],
+        5 => [
+            'name' => 'Admin',
+            'prefix' => 'Admin',
+        ],
+    ];
+
+    /**
+     * User constructor.
+     *
+     * @param array $attributes
+     */
+    public function __construct( array $attributes = [] )
+    {
+        parent::__construct( $attributes );
+
+        $this->accessLevel = array_get( $this->accessLevels, $this->accessLevel, 'Player' );
+    }
 }

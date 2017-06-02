@@ -6,9 +6,9 @@
  * Time: 7:11 PM
  */
 
-namespace App\Providers;
+namespace Ace\Providers;
 
-use App\Services\Sha256Hasher;
+use Ace\Services\Sha256Hasher;
 use Illuminate\Support\ServiceProvider;
 
 class HashServiceProvider extends ServiceProvider

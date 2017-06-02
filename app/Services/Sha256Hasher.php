@@ -7,7 +7,7 @@
  * Time: 10:03 PM
  */
 
-namespace App\Services;
+namespace Ace\Services;
 
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
 

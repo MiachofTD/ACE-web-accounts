@@ -6,7 +6,7 @@
  * Time: 6:36 PM
  */
 
-namespace App\Auth;
+namespace Ace\Auth;
 
 trait AuthenticatesUsers
 {

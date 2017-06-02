@@ -15,9 +15,10 @@ class ComposerStaticInit95d661e68b0bd0a611fb7345446a2ffc
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
-        '4a1f389d6ce373bda9e57857d3b61c84' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/helpers.php',
         'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
+        '4a1f389d6ce373bda9e57857d3b61c84' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/helpers.php',
         '9dec77e2e73da72cdfe5f455b38098e3' => __DIR__ . '/../..' . '/helpers/model.php',
+        'f91321a85ce0d9f19e4305f444fa4527' => __DIR__ . '/../..' . '/helpers/url.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -87,7 +88,7 @@ class ComposerStaticInit95d661e68b0bd0a611fb7345446a2ffc
         ),
         'A' => 
         array (
-            'App\\' => 4,
+            'Ace\\' => 4,
         ),
     );
 
@@ -228,7 +229,7 @@ class ComposerStaticInit95d661e68b0bd0a611fb7345446a2ffc
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src',
         ),
-        'App\\' => 
+        'Ace\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),

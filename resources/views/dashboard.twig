@@ -11,7 +11,18 @@
                 <div class="panel-body">
                     <h2>Dashboard</h2>
 
-                    {{ dump( auth_user() ) }}
+                    <ul>
+                        {% for character in characters %}
+                            <li>
+                                {{ character.property( 'title' ) }} {{ character.property( 'name' ) }}, Level {{ character.property( 'level' ) }}<br />
+                                Skill Credits Available: {{ character.property( 'spendable-skill-credits' ) }}
+
+
+                                {#{ character.getProperty( 2, 'string' ) }} {{ character.getProperty( 1, 'string' ) }}, Level {{ character.getProperty( 25, 'int' ) }}<br />
+                                Skill Credits Available: {{ character.getProperty( 24, 'int' ) }#}
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </div>
