@@ -15,18 +15,20 @@ if ( !function_exists( 'asset_cache_buster' ) ) {
      */
     function asset_cache_buster( $path, $externalFile = false )
     {
-        $cacheBuster = false;
         if ( $externalFile ) {
-            //Only add a new cache buster every hour
-            $cacheBuster = date( 'YmdH' );
+            //New cache buster every day
+            $cacheBuster = date( 'Ymd' );
 
             return $cacheBuster;
         }
+
+        $cacheBuster = false;
         if ( file_exists( $path ) ) {
             //Only calculate sha1 for files types we support
-            if ( in_array( pathinfo( $path, PATHINFO_EXTENSION ), config( 'assets.file_sha1_hash', [ 'css', ] ) ) ) {
+            if ( in_array( pathinfo( $path, PATHINFO_EXTENSION ), [ 'css' ] ) ) {
                 $cacheBuster = @sha1_file( $path );
             }
+
             //If the sha1 fails or the extension isn't supported, use the last modified date
             if ( $cacheBuster === false ) {
                 $cacheBuster = filemtime( $path );
@@ -50,6 +52,7 @@ if ( !function_exists( 'external_asset' ) ) {
     {
         $cacheBuster = asset_cache_buster( $path, true );
         $url = asset( $path, $secure );
+
         if ( $cacheBuster ) {
             $url = add_param( $url, 'd', $cacheBuster );
         }
@@ -60,7 +63,7 @@ if ( !function_exists( 'external_asset' ) ) {
 
 if ( !function_exists( 'public_asset' ) ) {
     /**
-     * Generate an asset path for the application.
+     * Generate an asset path for the public folder.
      *
      * @param  string $path
      * @param  bool   $secure
@@ -71,6 +74,7 @@ if ( !function_exists( 'public_asset' ) ) {
     {
         $cacheBuster = asset_cache_buster( base_path( 'public/' . ( $path ? ltrim( $path, '/' ) : '' ) ) );
         $url = asset( $path, $secure );
+
         if ( $cacheBuster ) {
             $url = add_param( $url, 'd', $cacheBuster );
         }
@@ -91,11 +95,14 @@ if ( !function_exists( 'add_param' ) ) {
     {
         $query = [];
         $parts = parse_url( $url );
+
         if ( isset( $parts[ 'query' ] ) ) {
             parse_str( $parts[ 'query' ], $query );
         }
+
         $query[ $key ] = $value;
         $query = http_build_query( $query );
+
         if ( !isset ( $parts[ 'query' ] ) ) {
             return $url . '?' . $query;
         }
