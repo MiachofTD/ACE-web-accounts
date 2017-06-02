@@ -1,13 +1,12 @@
-{#% import 'nav.macros' as nav %#}
+{% import 'nav.macros' as nav %}
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container obits no-gutter">
+    <div class="container ace no-gutter">
         <div class="navbar-header">
             <span class="navbar-brand">
-                <img src="{{ public_asset( 'img/logo.png' ) }}" height="20" alt="ACEmulator Logo" />
+                <img src="{{ public_asset( 'img/logo.png' ) }}" height="40" alt="ACEmulator Logo" />
             </span>
         </div>
-
 
         {% include 'nav.base' %}
     </div>

@@ -15,7 +15,26 @@ body {
 }
 
 .navbar-default {
-    background-color: #f9f9f9;
+    background-color: #080808;
+    border-color: #171717;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #a0a0a0;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #ddd;
+    background-color: transparent;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #bbb;
+    background-color: #303030;
+}
+
+.navbar-brand {
+    padding: 6px 15px;
 }
 
 .register h2, .login h2 {
