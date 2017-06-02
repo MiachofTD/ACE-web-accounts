@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Ace\Http\Controllers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Bus\DispatchesJobs;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Ace\Http\Controllers;
 
-use App\Models\Character;
+use Ace\Models\Character;
 
 class HomeController extends Controller
 {

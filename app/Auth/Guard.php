@@ -6,11 +6,11 @@
  * Time: 10:09 PM
  */
 
-namespace App\Auth;
+namespace Ace\Auth;
 
 use Illuminate\Auth\SessionGuard;
 
-class ACEGuard extends SessionGuard
+class Guard extends SessionGuard
 {
     /**
      * Log the user out of the application.

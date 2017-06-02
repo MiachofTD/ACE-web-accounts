@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Providers;
+namespace Ace\Providers;
 
-use App\Auth\ACEGuard;
+use Ace\Auth\Guard as AceGuard;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -15,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        'Ace\Model' => 'Ace\Policies\ModelPolicy',
     ];
 
     /**
@@ -33,7 +33,7 @@ class AuthServiceProvider extends ServiceProvider
             $providerConfig = $this->app[ 'config' ][ 'auth.providers.' . $config[ 'provider' ] ];
             $provider = new EloquentUserProvider( $this->app[ 'hash' ], $providerConfig[ 'model' ] );
 
-            return new ACEGuard( $name, $provider, $this->app[ 'session.store' ], $app->request );
+            return new AceGuard( $name, $provider, $this->app[ 'session.store' ], $app->request );
         } );
     }
 }

@@ -88,7 +88,7 @@ class ComposerStaticInit95d661e68b0bd0a611fb7345446a2ffc
         ),
         'A' => 
         array (
-            'App\\' => 4,
+            'Ace\\' => 4,
         ),
     );
 
@@ -229,7 +229,7 @@ class ComposerStaticInit95d661e68b0bd0a611fb7345446a2ffc
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src',
         ),
-        'App\\' => 
+        'Ace\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),

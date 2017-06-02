@@ -6,7 +6,8 @@
  * Time: 3:12 PM
  */
 
-use App\Models\User;
+use Ace\Models\User;
+use Ace\Models\Character;
 
 if ( !function_exists( 'user' ) ) {
     /**
@@ -15,5 +16,15 @@ if ( !function_exists( 'user' ) ) {
     function user()
     {
         return app( User::class );
+    }
+}
+
+if ( !function_exists( 'character' ) ) {
+    /**
+     * @return User
+     */
+    function character()
+    {
+        return app( Character::class );
     }
 }

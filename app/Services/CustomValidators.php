@@ -6,7 +6,7 @@
  * Time: 9:10 AM
  */
 
-namespace App\Services;
+namespace Ace\Services;
 
 use Illuminate\Validation\Validator;
 

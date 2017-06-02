@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Ace\Http\Controllers\Auth;
 
-use App\Models\User;
+use Ace\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Auth\AuthenticatesUsers as Username;
+use Ace\Http\Controllers\Controller;
+use Ace\Auth\AuthenticatesUsers as Username;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 

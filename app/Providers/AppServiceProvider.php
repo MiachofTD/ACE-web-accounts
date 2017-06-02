@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Providers;
+namespace Ace\Providers;
 
-use App\Services\Sha256Hasher;
-use App\Services\CustomValidators;
+use Ace\Services\Sha256Hasher;
+use Ace\Services\CustomValidators;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 

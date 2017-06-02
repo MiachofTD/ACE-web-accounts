@@ -25,7 +25,7 @@
             "helpers/url.php"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "Ace\\": "app/"
         }
     }
 }
