@@ -17,7 +17,7 @@ class CheckLogin
     public function handle( $request, Closure $next )
     {
         if ( auth()->guest() ) {
-            return redirect()->guest( 'auth.login' );
+            return redirect()->guest( '/login' );
         }
 
         return $next( $request );

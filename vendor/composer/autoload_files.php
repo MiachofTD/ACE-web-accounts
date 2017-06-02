@@ -17,4 +17,5 @@ return array(
     '4a1f389d6ce373bda9e57857d3b61c84' => $vendorDir . '/barryvdh/laravel-debugbar/src/helpers.php',
     'f18cc91337d49233e5754e93f3ed9ec3' => $vendorDir . '/laravelcollective/html/src/helpers.php',
     '9dec77e2e73da72cdfe5f455b38098e3' => $baseDir . '/helpers/model.php',
+    'f91321a85ce0d9f19e4305f444fa4527' => $baseDir . '/helpers/url.php',
 );

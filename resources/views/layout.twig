@@ -6,8 +6,8 @@
         <meta name="google" content="notranslate" />
         <meta http-equiv="Content-Language" content="en" />
 
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="{{ asset( 'css/app.css' ) }}" />
+        <link rel="stylesheet" href="{{ external_asset( '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' ) }}" />
+        <link rel="stylesheet" href="{{ public_asset( 'css/app.css' ) }}" />
 
         <script type="text/javascript">
             window.Laravel = {
@@ -22,13 +22,15 @@
     <body class="{% block bodyclass %}{% endblock %}">
         <div class="container">
             <header>
-                {#% include 'navigation' %#}
+                {% if currentRoute != 'auth.login' and currentRoute != 'auth.register' %}
+                    {% include 'navigation' %}
+                {% endif %}
                 {% include 'messages' %}
             </header>
 
             {% block content %}{% endblock %}
 
-            {#<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>#}
+            <script type="text/javascript" src="{{ external_asset( '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' ) }}"></script>
 
             {% block footerScripts %}{% endblock %}
 

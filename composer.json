@@ -21,7 +21,8 @@
             "database"
         ],
         "files": [
-            "helpers/model.php"
+            "helpers/model.php",
+            "helpers/url.php"
         ],
         "psr-4": {
             "App\\": "app/"

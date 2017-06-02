@@ -28,8 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-//        $this->app->singleton( 'hash', function () {
-//            return new Sha256Hasher;
-//        } );
+
     }
 }

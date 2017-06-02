@@ -21,8 +21,6 @@ class Character extends Model
      */
     protected $table = 'character';
 
-    protected $hidden = [];
-
     /**
      * The primary key for the model.
      *
