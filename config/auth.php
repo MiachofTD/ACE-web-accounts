@@ -69,11 +69,6 @@ return [
             'driver' => 'eloquent',
             'model' => Ace\Models\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

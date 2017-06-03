@@ -23,6 +23,8 @@
             "database"
         ],
         "files": [
+            "helpers/api.php",
+            "helpers/common.php",
             "helpers/model.php",
             "helpers/url.php"
         ],

@@ -2,8 +2,6 @@
 
 namespace Ace\Http\Controllers;
 
-use Ace\Models\Character;
-
 class HomeController extends Controller
 {
     /**
@@ -13,8 +11,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $characters = Character::where( 'accountId', auth()->user()->id )->get();
+        $characters = character()->where( 'accountId', auth()->user()->id )->get();
         $this->addContext( 'characters', $characters );
+
+        dd( github()->organizationEvents() );
 
         return response()->view( 'dashboard', $this->context );
     }
