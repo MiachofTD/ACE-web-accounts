@@ -102,6 +102,14 @@ class GitHubEvent
     }
 
     /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
      * Get the display name of the person who generated the event
      *
      * @return string
@@ -128,14 +136,20 @@ class GitHubEvent
             case 'PullRequestEvent':
                 return array_get( $this->payload, 'pull_request.html_url', '#' );
             break;
+
             case 'IssueCommentEvent':
-                return array_get( $this->payload, 'issue.html_url', '#' );
+                return array_get( $this->payload, 'comment.html_url', '#' );
             break;
+
             case 'PushEvent':
                 $head = array_get( $this->payload, 'head', '' );
                 $repo = array_get( $this->repo, 'name', '' );
 
                 return 'https://github.com/' . $repo . '/commit/' . $head;
+            break;
+
+            case 'ForkEvent':
+                return array_get( $this->payload, 'forkee.html_url', '' );
             break;
         }
 
@@ -147,18 +161,19 @@ class GitHubEvent
      */
     public function getLinkText()
     {
-        $action = array_get( $this->payload, 'action', '' );
-        switch ( $this->type . $action ) {
-            case 'PullRequestEventclosed':
-            case 'PullRequestEventopened':
+        switch ( $this->type ) {
+            case 'PullRequestEvent':
                 $repo = array_get( $this->repo, 'name', '' );
                 $number = array_get( $this->payload, 'number', 1 );
                 $title = array_get( $this->payload, 'pull_request.title', '' );
+                $action = array_get( $this->payload, 'action', '' );
 
                 return '[' . $repo . '] Pull request ' . $action . ': #' . $number . ' ' . $title;
             break;
 
-            case 'IssueCommentEventcreated':
+            case 'IssueCommentEvent':
+                $issueNumber = array_get( $this->payload, 'issue.number' );
+                return 'Comment added to issue #' . $issueNumber;
             break;
 
             case 'PushEvent':
@@ -170,6 +185,12 @@ class GitHubEvent
                 return '[' . $repo . ':' . $branch . '] ' . $count . ' new commit(s)';
             break;
 
+            case 'ForkEvent':
+                $repo = array_get( $this->repo, 'name', '' );
+                $fork = array_get( $this->payload, 'forkee.full_name', '' );
+
+                return '[' . $repo . '] Fork created: ' . $fork;
+            break;
         }
 
         return '';
@@ -197,9 +218,11 @@ class GitHubEvent
                     $texts[] = $text;
                 }
 
-
-
                 return implode( '<br />', $texts );
+            break;
+
+            case 'IssueCommentEvent':
+                return array_get( $this->payload, 'comment.body' );
             break;
         }
 
