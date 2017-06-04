@@ -12,6 +12,7 @@ class HomeController extends Controller
     public function index()
     {
         $characters = character()->where( 'accountId', auth()->user()->id )->get();
+
         $this->addContext( 'characters', $characters );
         $this->addContext( 'github', github()->organizationEvents()->slice( 0, 5 ) );
 

@@ -3,6 +3,7 @@
 namespace Ace\Http\Controllers;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -43,6 +44,13 @@ class Controller extends BaseController
         session()->forget( 'message.warning' );
 
         view()->share( 'messages', $messages );
+
+        $serverStatus = Artisan::call( 'server:check-status', [
+            '--server' => config( 'server.acserver.hostname', '' ),
+            '--port' => config( 'server.acserver.port', 9000 ),
+        ] );
+
+        view()->share( 'serverStatus', $serverStatus );
 
         return $this;
     }

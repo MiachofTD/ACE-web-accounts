@@ -30,42 +30,46 @@ class CheckServerStatus extends Command
 
     /**
      * Execute the console command.
+     * 0 - Failed to communicate with server
+     * 1 - Successfully communicated with server
      *
      * @return mixed
      */
     public function handle()
     {
-        if ( !( $socket = socket_create( AF_INET, SOCK_DGRAM, SOL_UDP ) ) ) {
-            $errorcode = socket_last_error();
-            $errormsg = socket_strerror( $errorcode );
+        $server = $this->option( 'server' );
+        $port = $this->option( 'port' );
 
-            echo "Couldn't create socket: [$errorcode] $errormsg \n";
-
-            return;
-        }
-        if ( !socket_connect( $socket, '73.88.27.215', 9000 ) ) {
-            $errorcode = socket_last_error();
-            $errormsg = socket_strerror( $errorcode );
-
-            echo "Could not connect: [$errorcode] $errormsg \n";
-
-            return;
+        //If no server hostname or port has been found, exit now
+        if ( empty( $server ) || empty( $port ) ) {
+            return 0;
         }
 
-        echo "Connection established \n";
-
-        $packet = hex2bin("00000000000001009300d005000000004000000004003138303200003400000001000000000000003eb8a8581c006163736572766572747261636b65723a6a6a3968323668637367676300000000000000000000");
-
-        try {
-            socket_write( $socket, $packet );
-        }
-        catch ( \Exception $e ) {
-            echo $e->getMessage();
-            return;
+        $fp = fsockopen( 'udp://' . $server, $port, $errno, $errstr, 10 );
+        if ( !$fp ) {
+            //Unable to create socket
+            info( 'Unable to create socket to udp://ac.aka-steve.com' );
+            return 0;
         }
 
-        socket_close( $socket );
+        socket_set_timeout( $fp, 1, 500 );
 
-        return;
+        //This is a specific packet the server will respond to
+        //See the Thwargle launcher for another implementation of this packet https://github.com/Thwargle/ThwargLauncher
+        $packet = hex2bin( "00000000000001009300d005000000004000000004003138303200003400000001000000000000003eb8a8581c006163736572766572747261636b65723a6a6a3968323668637367676300000000000000000000" );
+        fwrite( $fp, $packet );
+
+        //Because UDP is weird, we won't get a failure until we actually try and read a response from the server
+        if ( !( $response = fread( $fp, 9999 ) ) ) {
+            info( 'Unable to send/receive data from udp://ac.aka-steve.com' );
+            return 0;
+        }
+
+        //I don't know what to do with the response value right now.
+        //echo bin2hex( $response ) . "\n";
+
+        fclose( $fp );
+
+        return 1;
     }
 }

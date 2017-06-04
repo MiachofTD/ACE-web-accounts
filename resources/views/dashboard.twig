@@ -13,13 +13,6 @@
 
                     <div class="row">
                         {% if github.count() > 0 %}
-                            {#% for event in github %}
-                                <p id="event-{{ event.id }}" class="event">
-                                    <a href="https://github.com/{{ event.getLogin() }}">{{ event.getUsername() }}</a> {{ event.createdAt.timezone( 'America/Chicago' ).format( 'm/d/Y g:i:s a' ) }}<br />
-                                    <a href="{{ event.getUrl() }}" target="_blank">{{ event.getLinkText() }}</a><br />
-                                    {{ event.getDescription() }}
-                                </p>
-                            {% endfor %#}
                             <ul class="events list-group">
                                 {% for event in github %}
                                     <li id="event-{{ event.id }}" class="event list-group-item">
