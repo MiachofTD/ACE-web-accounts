@@ -2,3 +2,4 @@
 .env
 composer.phar
 .vagrant
+public/phpinfo.php
