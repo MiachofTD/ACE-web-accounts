@@ -31,9 +31,10 @@ class RegistrationRequest extends FormRequest
     {
         return [
             'account' => 'required|min:3|max:32|lowercase_alpha_dash|unique:account',
-            'password' => 'required|min:6',
+            'email' => 'required|email',
             'g-recaptcha-response' => 'required',
-            'email' => 'sometimes|email'
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6',
         ];
     }
 

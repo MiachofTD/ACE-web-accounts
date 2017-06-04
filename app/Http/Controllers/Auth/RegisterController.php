@@ -45,6 +45,7 @@ class RegisterController extends Controller
         return user()->create( [
             'account' => $data[ 'account' ],
             'password' => bcrypt( $data[ 'password' ] ),
+            'email' => $data[ 'email' ],
             'accesslevel' => env( 'ACCESS_LEVEL', 5 ),
             'salt' => Hash::make( rand( 0, 9999999 ) ),
         ] );
@@ -66,7 +67,7 @@ class RegisterController extends Controller
      */
     public function register( RegistrationRequest $request )
     {
-        $this->create( $request->only( [ 'account', 'password' ] ) );
+        $this->create( $request->only( [ 'account', 'password', 'email' ] ) );
 
         return redirect()->route( 'auth.login' )->with( 'message.success', 'You have successfully registered.' );
     }
