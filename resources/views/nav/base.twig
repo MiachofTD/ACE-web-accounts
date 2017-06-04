@@ -1,4 +1,9 @@
 <ul class="nav navbar-nav">
     {{ nav.menuItem( 'dashboard', {}, currentRoute, 'Dashboard' ) }}
     {{ nav.menuItem( 'auth.logout', {}, currentRoute, 'Logout' ) }}
+
+    {{ nav.dropdownOpen('character', currentRoute, 'login', 'My Characters') }}
+        {#{ nav.dropdownItem('character', 'login', 'Change Password') }}
+        {{ nav.dropdownItem('character', 'login', 'Log Out') }#}
+    {{ nav.dropdownClose() }}
 </ul>

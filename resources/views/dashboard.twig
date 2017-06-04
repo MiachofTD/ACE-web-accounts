@@ -9,20 +9,39 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h2>Dashboard</h2>
+                    <h2>Latest Updates</h2>
 
-                    <ul>
+                    <div class="row">
+                        {% if github.count() > 0 %}
+                            {#% for event in github %}
+                                <p id="event-{{ event.id }}" class="event">
+                                    <a href="https://github.com/{{ event.getLogin() }}">{{ event.getUsername() }}</a> {{ event.createdAt.timezone( 'America/Chicago' ).format( 'm/d/Y g:i:s a' ) }}<br />
+                                    <a href="{{ event.getUrl() }}" target="_blank">{{ event.getLinkText() }}</a><br />
+                                    {{ event.getDescription() }}
+                                </p>
+                            {% endfor %#}
+                            <ul class="events list-group">
+                                {% for event in github %}
+                                    <li id="event-{{ event.id }}" class="event list-group-item">
+                                        <a href="https://github.com/{{ event.getLogin() }}">{{ event.getUsername() }}</a> {{ event.createdAt.timezone( 'America/Chicago' ).format( 'm/d/Y g:i:s a' ) }}<br />
+                                        <a href="{{ event.getUrl() }}" target="_blank">{{ event.getLinkText() }}</a><br />
+                                        {{ event.getDescription() }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            No changes have been made in the last 90 days.
+                        {% endif %}
+                    </div>
+
+                    {#<ul>
                         {% for character in characters %}
                             <li>
                                 {{ character.property( 'title' ) }} {{ character.property( 'name' ) }}, Level {{ character.property( 'level' ) }}<br />
                                 Skill Credits Available: {{ character.property( 'spendable-skill-credits' ) }}
-
-
-                                {#{ character.getProperty( 2, 'string' ) }} {{ character.getProperty( 1, 'string' ) }}, Level {{ character.getProperty( 25, 'int' ) }}<br />
-                                Skill Credits Available: {{ character.getProperty( 24, 'int' ) }#}
                             </li>
                         {% endfor %}
-                    </ul>
+                    </ul>#}
                 </div>
             </div>
         </div>

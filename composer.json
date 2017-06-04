@@ -14,13 +14,17 @@
         "laravelcollective/html": "^5.2",
         "barryvdh/laravel-debugbar": "^2.0",
         "barryvdh/laravel-ide-helper": "^2.2",
-        "rcrowe/twigbridge": "^0.9"
+        "rcrowe/twigbridge": "^0.9",
+        "nesbot/carbon": "^1.22",
+        "guzzlehttp/guzzle": "~6.0"
     },
     "autoload": {
         "classmap": [
             "database"
         ],
         "files": [
+            "helpers/api.php",
+            "helpers/common.php",
             "helpers/model.php",
             "helpers/url.php"
         ],

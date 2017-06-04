@@ -9,7 +9,7 @@
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h2>Login</h2>
+                    <h2>Login <img src="{{ public_asset( 'img/logoshaded.png' ) }}" height="45" alt="ACEmulator Logo" class="pull-right" /></h2>
 
                     <form action="{{ route( 'auth.login' ) }}" method="POST" id="registration-form">
                         <div class="form-group">
@@ -26,12 +26,17 @@
                             {{ csrf_field() }}
                             <input type="submit" value="Login" class="form-control btn btn-primary" /><br /><br />
                         </div>
+
+                        <div class="form-group">
+                            <strong>Don't have an account? <a href="{{ route( 'auth.register' ) }}"> Click here</a></strong>
+                        </div>
                     </form>
-					        <span class="black-text">
-            <br />You can download <a href="#">this batch file</a>
-            (Be sure to change the username and password in the file to what you registered with)
-            or add ac.aka-steve.com:9000 to your ThwargLauncher ACEServerList.xml file.
-        </span>
+
+                    <span class="black-text">
+                        <br />You can download <a href="#">this batch file</a>
+                        (Be sure to change the username and password in the file to what you registered with)
+                        or add ac.aka-steve.com:9000 to your ThwargLauncher ACEServerList.xml file.
+                    </span>
                 </div>
             </div>
         </div>
