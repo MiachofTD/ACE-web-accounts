@@ -49,9 +49,6 @@
     - name: Install NodeJS
       apt: pkg=nodejs state=latest
 
-    - name: Install Compass
-      gem: name=compass
-
     - name: Add Yarn APT key
       apt_key: url=https://dl.yarnpkg.com/debian/pubkey.gpg id=1646B01B86E50310
 
@@ -67,43 +64,31 @@
     - name: Install Postfix
       apt: pkg=postfix state=latest
 
-    - name: Install memcached
-      apt: pkg=memcached state=latest
-
-    - name: Start the memcached service
-      service: name=memcached state=started enabled=yes
-
-    - name: Install redis
-      apt: pkg=redis-server state=latest
-
-    - name: Start the redis service
-      service: name=redis-server state=started enabled=yes
-
     - name: Restart the Postfix service
       service: name=postfix state=restarted enabled=yes
 
     - name: Install PHP, modules, and tools
       apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
       with_items:
-        - php7.0
-        - php7.0-fpm
-        - php7.0-cli
-        - php7.0-memcached
-        - php7.0-redis
-        - php7.0-common
-        - php7.0-intl
-        - php7.0-curl
-        - php7.0-dev
-        - php7.0-gd
-        - php7.0-xml
-        - php7.0-json
-        - php7.0-mbstring
-        - php7.0-zip
+        - php5.6
+        - php5.6-fpm
+        - php5.6-cli
+        - php5.6-mysql
+        - php5.6-redis
+        - php5.6-common
+        - php5.6-intl
+        - php5.6-curl
+        - php5.6-dev
+        - php5.6-gd
+        - php5.6-xml
+        - php5.6-json
+        - php5.6-mbstring
+        - php5.6-zip
         - phpunit
 
-    - name: Restart php7.0-fpm
+    - name: Restart php5.6-fpm
       become_user: 'root'
-      action: service name=php7.0-fpm state=restarted enabled=yes
+      action: service name=php5.6-fpm state=restarted enabled=yes
 
     - name: Install composer globally
       shell:  curl -sS https://getcomposer.org/installer | /usr/bin/php && sudo /bin/mv -f composer.phar {{ composer_path }} creates={{ composer_path }}
