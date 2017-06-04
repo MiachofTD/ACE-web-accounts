@@ -13,8 +13,7 @@ class HomeController extends Controller
     {
         $characters = character()->where( 'accountId', auth()->user()->id )->get();
         $this->addContext( 'characters', $characters );
-
-        dd( github()->organizationEvents() );
+        $this->addContext( 'github', github()->organizationEvents() );
 
         return response()->view( 'dashboard', $this->context );
     }

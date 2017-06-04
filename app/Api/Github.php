@@ -8,6 +8,9 @@
 
 namespace Ace\Api;
 
+use Illuminate\Support\Collection;
+use Ace\Models\Components\GitHubEvent;
+
 class GitHub extends ApiRequest
 {
     /**
@@ -30,7 +33,7 @@ class GitHub extends ApiRequest
     }
 
     /**
-     * @return mixed
+     * @return Collection
      */
     public function organizationEvents()
     {
@@ -42,6 +45,16 @@ class GitHub extends ApiRequest
         $results = $this->setVersion()->httpGet();
         $this->reset();
 
-        return $results->getBody();
+        $body = $results->getBody();
+
+        $events = collect( [] );
+
+        foreach ( $body as $eventData ) {
+            $event = new GitHubEvent( $eventData[ 'id' ], $eventData );
+
+            $events->put( $event->id, $event );
+        }
+
+        return $events->sortByDesc( 'createdAt' );
     }
 }

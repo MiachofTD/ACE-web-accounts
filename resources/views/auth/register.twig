@@ -5,7 +5,7 @@
 {% block bodyclass %}register{% endblock %}
 
 {% block headerScripts %}
-    <script type="text/javascript" src="https://www.google.com/recaptcha/api.js"></script>
+    <script type="text/javascript" src="{{ external_asset( '//www.google.com/recaptcha/api.js' ) }}"></script>
 {% endblock %}
 
 {% block content %}
@@ -13,7 +13,7 @@
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h2>Register</h2>
+                    <h2>Register <img src="{{ public_asset( 'img/logoshaded.png' ) }}" height="45" alt="ACEmulator Logo" class="pull-right" /></h2>
 
                     <form action="{{ route( 'auth.register' ) }}" method="POST" id="registration-form">
                         <div class="form-group">
@@ -40,7 +40,11 @@
                             {{ csrf_field() }}
                             <input type="submit" value="Sign Up" class="form-control btn btn-primary" /><br /><br />
 
-                            <div class="g-recaptcha" data-sitekey="6LeZPiMUAAAAAGA-Qr7dELlu73gyAWHX-sG7q2RA"></div>
+                            <div class="g-recaptcha" data-sitekey="{{ recaptchaKey }}"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <strong>Already have an account? <a href="{{ route( 'auth.login' ) }}">Click Here</a></strong>
                         </div>
                     </form>
                 </div>

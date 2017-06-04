@@ -55,7 +55,8 @@ class RegisterController extends Controller
      */
     public function index()
     {
-        return view()->make( 'auth.register', [] );
+        $this->addContext( 'recaptchaKey', config( 'services.recaptcha', '' ) );
+        return view()->make( 'auth.register', $this->context );
     }
 
     /**

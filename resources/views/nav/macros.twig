@@ -1,7 +1,26 @@
 {% macro menuItem(route, parameters, current, name, disabled) %}
-    <li class="{% if route == current %}active{% endif %}{% if disabled|default(false) %} disabled{% endif %}">
+    <li class="nav {% if route == current %}active{% endif %}{% if disabled|default(false) %} disabled{% endif %}">
         <a href="{% if disabled|default(false) == false %}{{ route( route, parameters ) }}{% else %}#{% endif %}">
             {{ name }}
         </a>
     </li>
+{% endmacro %}
+
+{% macro dropdownOpen(class, route, partialRoute, name) %}
+    <li class="dropdown {{ class }}-menu{% if partialRoute in route %} active{% endif %}">
+        <a href="#" class="dropdown-toggle" id="{{ class }}-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {{ name }} <span class="caret"></span>
+        </a>
+    <ul class="dropdown-menu" role="menu">
+{% endmacro %}
+
+{% macro dropdownItem(class, url, name) %}
+    <li class="{{ class }}-menu">
+        <a href="{{ url }}">{{ name }}</a>
+    </li>
+{% endmacro %}
+
+{% macro dropdownClose() %}
+    </ul>
+</li>
 {% endmacro %}
