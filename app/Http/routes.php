@@ -23,4 +23,8 @@ Route::post( '/register', [ 'uses' => 'Auth\RegisterController@register' ] );
 Route::group( [ 'middleware' => 'check.login' ], function () {
     Route::get( '/', [ 'as' => 'dashboard', 'uses' => 'HomeController@index' ] );
 
+    Route::group( [ 'prefix' => 'characters' ], function() {
+        Route::get( '/', [ 'as' => 'characters', 'uses' => 'CharacterController@all' ] );
+        Route::get( '/{id}', [ 'as' => 'characters.index', 'uses' => 'CharacterController@index' ] );
+    } );
 });

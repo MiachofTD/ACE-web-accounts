@@ -1,0 +1,46 @@
+{% extends 'layout' %}
+
+{% import 'macros' as char %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block content %}
+    <div class="row top-buffer">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2>My Characters</h2>
+
+                    <div class="row">
+                        {% if characters.count() > 0 %}
+                            <ul class="characters list-group">
+                                {% for character in characters %}
+                                    <li id="character-{{ character.guid }}" class="character list-group-item">
+                                        <h3>
+                                            <a href="{{ route( 'characters.index', { id: character.guid } ) }}">{{ character.property( 'name' ) }}</a>
+                                        </h3>
+
+                                        <p>
+                                            Level {{ character.property( 'level' ) }} {{ character.property( 'gender' ) }} {{ character.property( 'race' )|capitalize }}
+                                        </p>
+                                        <div>
+                                            Birth Date: {{ character.property( 'birthdate' ).format( 'm/d/Y' ) }}<br />
+                                            Age: {{ char.ageForHumans( character.property( 'age' ) ) }}<br />
+                                            Deaths: {{ character.property( 'deaths' ) }}<br />
+                                            Skill Credits Available: {{ character.property( 'spendable-skill-credits' ) }}
+                                        </div>
+
+                                        {#{ character.property( 'title' ) }} {{ character.property( 'name' ) }}, Level {{ character.property( 'level' ) }}<br />
+                                        Skill Credits Available: {{ character.property( 'spendable-skill-credits' ) }#}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

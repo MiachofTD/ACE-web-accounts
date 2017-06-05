@@ -3,6 +3,7 @@
 namespace Ace\Models;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
@@ -78,7 +79,7 @@ class Character extends Model
     /**
      * @param string $name
      *
-     * @return string|Carbon
+     * @return string|Carbon|\DateInterval
      */
     public function property( $name )
     {
@@ -90,7 +91,17 @@ class Character extends Model
 
         $property = $this->getProperty( $prop[ 'id' ], $prop[ 'table' ] );
 
-        if ( strpos( $name, 'date' ) !== false ) {
+        //Because apparently Carbon can't parse a timestamp without help
+        if ( $name == 'birthdate' ) {
+            return Carbon::createFromFormat( 'U', $property )->timezone( 'America/Chicago' );
+        }
+        else if ( $name == 'age' ) {
+            $birthdate = $this->property( 'birthdate' );
+            $age = $birthdate->copy()->addseconds( $property );
+
+            return $birthdate->diff( $age );
+        }
+        else if ( strpos( $name, 'date' ) !== false ) {
             return Carbon::parse( $property );
         }
         else if ( array_has( $prop, 'options' ) ) {
