@@ -33,7 +33,7 @@ body {
     background-color: #303030;
 }
 
-.events {
+ul.events, ul.characters {
     margin: auto 5px;
 }
 
@@ -76,6 +76,14 @@ body {
 
 .black-text {
     color: #000;
+}
+
+.status-up {
+    background-color: green;
+}
+
+.status-down {
+    background-color: red;
 }
 
 /*.panel {

@@ -11,7 +11,7 @@
 |
 */
 
-Route::group( [ 'middleware' => 'secure' ], function() {
+Route::group( [ 'middleware' => 'secure' ], function () {
     //Login
     Route::get( '/login', [ 'as' => 'auth.login', 'uses' => 'Auth\LoginController@index' ] );
     Route::post( '/login', [ 'uses' => 'Auth\LoginController@login' ] );
@@ -23,5 +23,10 @@ Route::group( [ 'middleware' => 'secure' ], function() {
 
     Route::group( [ 'middleware' => 'check.login' ], function () {
         Route::get( '/', [ 'as' => 'dashboard', 'uses' => 'HomeController@index' ] );
+
+        Route::group( [ 'prefix' => 'characters' ], function () {
+            Route::get( '/', [ 'as' => 'characters', 'uses' => 'CharacterController@all' ] );
+            Route::get( '/{id}', [ 'as' => 'characters.index', 'uses' => 'CharacterController@index' ] );
+        } );
     } );
 } );

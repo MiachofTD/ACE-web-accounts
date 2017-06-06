@@ -1,15 +1,15 @@
 <ul class="nav navbar-nav">
     {{ nav.menuItem( 'dashboard', {}, currentRoute, 'Dashboard' ) }}
-    {{ nav.menuItem( 'auth.logout', {}, currentRoute, 'Logout' ) }}
 
-    {{ nav.dropdownOpen('character', currentRoute, 'login', 'My Characters') }}
-        {#{ nav.dropdownItem('character', 'login', 'Change Password') }}
-        {{ nav.dropdownItem('character', 'login', 'Log Out') }#}
+    {{ nav.dropdownOpen( 'profile', currentRoute, 'login', 'Profile' ) }}
+        {{ nav.dropdownItem( 'profile', 'characters', 'Characters' ) }}
+        {{ nav.dropdownItem( 'profile', 'login', 'Change Password' ) }}
     {{ nav.dropdownClose() }}
 
-    <li class="nav" style="background-color: {{ serverStatus == 1 ? 'green' : 'red' }}">
+    {{ nav.menuItem( 'auth.logout', {}, currentRoute, 'Logout' ) }}
+
+    <li class="nav {{ serverStatus == 1 ? 'status-up' : 'status-down' }}">
         {% set status = serverStatus == 1 ? 'On' : 'Off' %}
         <a>Server Status: <strong>{{ status }}</strong></a>
-        {##}
     </li>
 </ul>

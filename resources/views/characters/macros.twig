@@ -1,0 +1,52 @@
+{% macro ageForHumans( ageObject ) %}
+    {% set age = '' %}
+
+    {% if ageObject.y > 0 %}
+        {% set age = age ~ ageObject.y ~ ' year' %}
+        {% if ageObject.y > 1 %}
+            {% set age = age ~ 's' %}
+        {% endif %}
+        {% set age = age ~ ', ' %}
+    {% endif %}
+
+    {% if ageObject.m > 0 %}
+        {% set age = age ~ ageObject.m ~ ' month' %}
+        {% if ageObject.m > 1 %}
+            {% set age = age ~ 's' %}
+        {% endif %}
+        {% set age = age ~ ', ' %}
+    {% endif %}
+
+    {% if ageObject.d > 0 %}
+        {% set age = age ~ ageObject.d ~ ' day' %}
+        {% if ageObject.d > 1 %}
+            {% set age = age ~ 's' %}
+        {% endif %}
+        {% set age = age ~ ', ' %}
+    {% endif %}
+
+    {% if ageObject.h > 0 %}
+        {% set age = age ~ ageObject.h ~ ' hour' %}
+        {% if ageObject.h > 1 %}
+            {% set age = age ~ 's' %}
+        {% endif %}
+        {% set age = age ~ ', ' %}
+    {% endif %}
+
+    {% if ageObject.i > 0 %}
+        {% set age = age ~ ageObject.i ~ ' minute' %}
+        {% if ageObject.i > 1 %}
+            {% set age = age ~ 's' %}
+        {% endif %}
+        {% set age = age ~ ', ' %}
+    {% endif %}
+
+    {% if ageObject.s > 0 %}
+        {% set age = age ~ ageObject.s ~ ' second' %}
+        {% if ageObject.s > 1 %}
+            {% set age = age ~ 's' %}
+        {% endif %}
+    {% endif %}
+
+    {{ age }}
+{% endmacro %}
