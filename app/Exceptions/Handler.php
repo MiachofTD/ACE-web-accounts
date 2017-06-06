@@ -30,23 +30,35 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $e
+     * @param  \Exception $e
+     *
      * @return void
      */
-    public function report(Exception $e)
+    public function report( Exception $e )
     {
-        parent::report($e);
+        parent::report( $e );
     }
 
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Exception               $e
+     *
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $e)
+    public function render( $request, Exception $e )
     {
-        return parent::render($request, $e);
+        if ( $e instanceof TokenMismatchException ) {
+            //If the session expired before the user could submit, send them back with an error message
+            $message = 'Oops! Seems you couldn\'t this form for a longtime. Please try again.';
+            if ( $request->route() == 'auth.login' ) {
+                $message = 'Oops! Seems you couldn\'t log in for a longtime. Please try again.';
+            }
+
+            return redirect( $request->fullUrl() )->with( 'message.error', $message );
+        }
+
+        return parent::render( $request, $e );
     }
 }
