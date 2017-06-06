@@ -8,8 +8,6 @@
 
     {{ nav.menuItem( 'auth.logout', {}, currentRoute, 'Logout' ) }}
 
-    <li class="nav">&nbsp;</li>
-
     <li class="nav {{ serverStatus == 1 ? 'status-up' : 'status-down' }}">
         {% set status = serverStatus == 1 ? 'On' : 'Off' %}
         <a>Server Status: <strong>{{ status }}</strong></a>
