@@ -11,7 +11,7 @@ use Ace\Models\Character;
 
 if ( !function_exists( 'user' ) ) {
     /**
-     * @return User
+     * @return User|\Illuminate\Database\Eloquent\Builder
      */
     function user()
     {
@@ -21,7 +21,7 @@ if ( !function_exists( 'user' ) ) {
 
 if ( !function_exists( 'character' ) ) {
     /**
-     * @return User
+     * @return User|\Illuminate\Database\Eloquent\Builder
      */
     function character()
     {

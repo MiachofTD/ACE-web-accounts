@@ -19,7 +19,7 @@
                                 {% for character in characters %}
                                     <li id="character-{{ character.guid }}" class="character list-group-item">
                                         <h3>
-                                            <a href="{{ route( 'characters.index', { id: character.guid } ) }}">{{ character.property( 'name' ) }}</a>
+                                            {{ character.property( 'name' ) }}, {{ character.property( 'title' ) }}
                                         </h3>
 
                                         <p>
@@ -27,7 +27,7 @@
                                         </p>
                                         <div>
                                             Birth Date: {{ character.property( 'birthdate' ).format( 'm/d/Y' ) }}<br />
-                                            Age: {{ char.ageForHumans( character.property( 'age' ) ) }}<br />
+                                            Time Played: {{ char.ageForHumans( character.property( 'age' ) ) }}<br />
                                             Deaths: {{ character.property( 'deaths' ) }}<br />
                                             Skill Credits Available: {{ character.property( 'spendable-skill-credits' ) }}
                                         </div>

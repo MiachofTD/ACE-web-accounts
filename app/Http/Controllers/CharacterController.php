@@ -10,9 +10,17 @@ use Illuminate\Support\Collection;
 
 class CharacterController extends Controller
 {
+    /**
+     * @param $id
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index( $id )
     {
-        $character = character()->where( 'guid', $id )->where( 'accountId', auth()->user()->id )->get()->first();
+        $character = character()
+            ->where( 'accountId', auth()->id() )
+            ->where( 'guid', $id )
+            ->first();
 
         if ( !$character instanceof Character ) {
             app()->abort( 404 );
@@ -22,9 +30,14 @@ class CharacterController extends Controller
         return response()->view( 'characters.index', $this->context );
     }
 
+    /**
+     * @return \Illuminate\Http\Response
+     */
     public function all()
     {
-        $characters = character()->where( 'accountId', auth()->user()->id )->get();
+        $characters = character()
+            ->where( 'accountId', auth()->id() )
+            ->get();
 
         /** @var $characters Collection */
         $characters->each( function( $item, $key ) {
