@@ -78,6 +78,14 @@ ul.events, ul.characters {
     color: #000;
 }
 
+.status-up {
+    background-color: green;
+}
+
+.status-down {
+    background-color: red;
+}
+
 /*.panel {
     display: table;
     position: absolute;

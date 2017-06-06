@@ -1,10 +1,10 @@
 {% extends 'layout' %}
 
-{% import 'macros' as char %}
+{% import 'characters.macros' as char %}
 
 {% block title %}Dashboard{% endblock %}
 
-{% block bodyclass %}dashboard{% endblock %}
+{% block bodyclass %}characters{% endblock %}
 
 {% block content %}
     <div class="row top-buffer">
@@ -31,9 +31,6 @@
                                             Deaths: {{ character.property( 'deaths' ) }}<br />
                                             Skill Credits Available: {{ character.property( 'spendable-skill-credits' ) }}
                                         </div>
-
-                                        {#{ character.property( 'title' ) }} {{ character.property( 'name' ) }}, Level {{ character.property( 'level' ) }}<br />
-                                        Skill Credits Available: {{ character.property( 'spendable-skill-credits' ) }#}
                                     </li>
                                 {% endfor %}
                             </ul>
