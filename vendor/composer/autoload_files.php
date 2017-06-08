@@ -20,6 +20,7 @@ return array(
     '4a1f389d6ce373bda9e57857d3b61c84' => $vendorDir . '/barryvdh/laravel-debugbar/src/helpers.php',
     '37a3dc5111fe8f707ab4c132ef1dbc62' => $vendorDir . '/guzzlehttp/guzzle/src/functions_include.php',
     '2ce86bedcbb0672a546ce6d697978e66' => $baseDir . '/helpers/api.php',
+    'e20d2ee5b40c028a792571f185272d90' => $baseDir . '/helpers/db.php',
     '717e60ad62204817e837c6e15ac6d75f' => $baseDir . '/helpers/common.php',
     '9dec77e2e73da72cdfe5f455b38098e3' => $baseDir . '/helpers/model.php',
     'f91321a85ce0d9f19e4305f444fa4527' => $baseDir . '/helpers/url.php',

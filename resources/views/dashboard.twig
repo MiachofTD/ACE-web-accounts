@@ -18,7 +18,8 @@
                                     <li id="event-{{ event.id }}" class="event list-group-item">
                                         <a href="https://github.com/{{ event.getLogin() }}">{{ event.getUsername() }}</a> {{ event.createdAt.timezone( 'America/Chicago' ).format( 'm/d/Y g:i:s a' ) }}<br />
                                         <a href="{{ event.getUrl() }}" target="_blank">{{ event.getLinkText() }}</a><br />
-                                        {{ event.getDescription() }}
+                                        {#{ dump( event.getDescription() ) }#}
+                                        {{ event.getDescription()|raw }}
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -26,15 +27,6 @@
                             No changes have been made in the last 90 days.
                         {% endif %}
                     </div>
-
-                    {#<ul>
-                        {% for character in characters %}
-                            <li>
-                                {{ character.property( 'title' ) }} {{ character.property( 'name' ) }}, Level {{ character.property( 'level' ) }}<br />
-                                Skill Credits Available: {{ character.property( 'spendable-skill-credits' ) }}
-                            </li>
-                        {% endfor %}
-                    </ul>#}
                 </div>
             </div>
         </div>
