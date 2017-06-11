@@ -1,0 +1,48 @@
+body {
+  background: url('../img/stats-background.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  .top-buffer {
+    margin-top: 70px;
+  }
+
+  & ul.events, & ul.characters {
+    margin: auto 5px;
+
+    & > li:nth-child(even) {
+      background-color: #ddd;
+    }
+  }
+
+  .panel-default {
+    background-color: rgba(255, 255, 255, 0.6)
+  }
+}
+
+.auth {
+  background: url('../img/login-background.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  & h2 {
+    margin-top: inherit;
+  }
+
+  & #messages {
+    padding-top: 30px;
+    float: left;
+  }
+
+  &.register .top-buffer {
+    margin-top: 100px;
+  }
+
+  &.login .top-buffer {
+    margin-top: 180px;
+  }
+}
