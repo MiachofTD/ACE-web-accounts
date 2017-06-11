@@ -9,6 +9,6 @@
 return [
     'acserver' => [
         'hostname' => env( 'AC_SERVER_HOSTNAME', '' ),
-        'port' => env( 'AC_SERVER_PORT', 9000 )
-    ]
+        'port' => env( 'AC_SERVER_PORT', 9000 ),
+    ],
 ];
