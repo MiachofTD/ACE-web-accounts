@@ -5,14 +5,10 @@
 {% block bodyclass %}login{% endblock %}
 
 {% block content %}
-<div class="video-background">
-    <div class="video-foreground">
-      <iframe src="https://www.youtube.com/embed/Sx2XrsR0rcY?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=Sx2XrsR0rcY" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </div>
+    {% if config( 'layout.background.animated' ) %}
+        {% include 'animated-background' %}
+    {% endif %}
 
-<div id="vidtop-content">
-</div>
     <div class="row top-buffer-login">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
