@@ -36,16 +36,8 @@ Route::group( [ 'middleware' => 'secure' ], function () {
     Route::group( [ 'prefix' => 'password' ], function () {
         Route::get( '/reset', [ 'as' => 'password.request', 'uses' => 'Auth\PasswordController@showLinkRequestForm' ] );
         Route::post( '/email', [ 'as' => 'password.email', 'uses' => 'Auth\PasswordController@sendResetLinkEmail' ] );
-//
-//        Route::get( '/reset/{token}', [ 'as' => 'password.reset', 'uses' => 'Auth\ResetPasswordController@showResetForm' ] );
-//        Route::post( '/reset', [ 'uses' => 'Auth\ResetPasswordController@reset' ] );
 
-//        $this->get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
-//        $this->post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
-//        $this->post('password/reset', 'Auth\PasswordController@reset');
+        Route::get( '/reset/{token}', [ 'as' => 'password.reset', 'uses' => 'Auth\PasswordController@showResetForm' ] );
+        Route::post( '/reset', [ 'uses' => 'Auth\PasswordController@reset' ] );
     } );
 } );
-
-//Route::auth();
-//
-//Route::get('/home', 'HomeController@index');

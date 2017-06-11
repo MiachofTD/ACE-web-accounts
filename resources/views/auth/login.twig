@@ -19,7 +19,7 @@
 
                         <div class="form-group">
                             <label for="password">Password:</label>
-                            <input type="password" name="password" id="password" class="form-control" placeholder="Password" required />
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Password" required autofocus />
                         </div>
 
                         <div class="form-group">
@@ -28,6 +28,7 @@
                         </div>
 
                         <div class="form-group">
+                            <strong><a href="{{ route( 'password.request' ) }}">Forgot Password</a></strong><br />
                             <strong>Don't have an account? <a href="{{ route( 'auth.register' ) }}"> Click here</a></strong>
                         </div>
                     </form>
