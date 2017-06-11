@@ -134,6 +134,7 @@ class GitHubEvent
     {
         switch ( $this->type ) {
             case 'PullRequestEvent':
+            case 'PullRequestReviewCommentEvent':
                 return array_get( $this->payload, 'pull_request.html_url', '#' );
             break;
 
@@ -163,6 +164,7 @@ class GitHubEvent
     {
         switch ( $this->type ) {
             case 'PullRequestEvent':
+            case 'PullRequestReviewCommentEvent':
                 $repo = array_get( $this->repo, 'name', '' );
                 $number = array_get( $this->payload, 'number', 1 );
                 $title = array_get( $this->payload, 'pull_request.title', '' );
@@ -173,6 +175,7 @@ class GitHubEvent
 
             case 'IssueCommentEvent':
                 $issueNumber = array_get( $this->payload, 'issue.number' );
+
                 return 'Comment added to issue #' . $issueNumber;
             break;
 
@@ -201,9 +204,11 @@ class GitHubEvent
      */
     public function getDescription()
     {
+        $description = '';
         switch ( $this->type ) {
             case 'PullRequestEvent':
-                return array_get( $this->payload, 'pull_request.body', '' );
+            case 'PullRequestReviewCommentEvent':
+                $description = array_get( $this->payload, 'pull_request.body', '' );
             break;
 
             case 'PushEvent':
@@ -218,14 +223,14 @@ class GitHubEvent
                     $texts[] = $text;
                 }
 
-                return implode( '<br />', $texts );
+                $description = implode( '<br />', $texts );
             break;
 
             case 'IssueCommentEvent':
-                return array_get( $this->payload, 'comment.body' );
+                $description = array_get( $this->payload, 'comment.body' );
             break;
         }
 
-        return '';
+        return str_replace( [ "\r\n", "\n" ], '<br />', $description );
     }
 }

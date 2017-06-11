@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::group( [ 'middleware' => 'secure' ], function () {
     //Login
     Route::get( '/login', [ 'as' => 'auth.login', 'uses' => 'Auth\LoginController@index' ] );
@@ -28,5 +30,14 @@ Route::group( [ 'middleware' => 'secure' ], function () {
             Route::get( '/', [ 'as' => 'characters', 'uses' => 'CharacterController@all' ] );
             Route::get( '/{id}', [ 'as' => 'characters.index', 'uses' => 'CharacterController@index' ] );
         } );
+    } );
+
+    // Password Reset Routes...
+    Route::group( [ 'prefix' => 'password' ], function () {
+        Route::get( '/reset', [ 'as' => 'password.request', 'uses' => 'Auth\PasswordController@showLinkRequestForm' ] );
+        Route::post( '/email', [ 'as' => 'password.email', 'uses' => 'Auth\PasswordController@sendResetLinkEmail' ] );
+
+        Route::get( '/reset/{token}', [ 'as' => 'password.reset', 'uses' => 'Auth\PasswordController@showResetForm' ] );
+        Route::post( '/reset', [ 'uses' => 'Auth\PasswordController@reset' ] );
     } );
 } );
