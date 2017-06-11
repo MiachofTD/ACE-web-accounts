@@ -2,13 +2,17 @@
 
 {% block title %}Create Account{% endblock %}
 
-{% block bodyclass %}register{% endblock %}
+{% block bodyclass %}auth register{% endblock %}
 
 {% block headerScripts %}
     <script type="text/javascript" src="{{ external_asset( '//www.google.com/recaptcha/api.js' ) }}"></script>
 {% endblock %}
 
 {% block content %}
+    {% if config( 'layout.background.animated' ) %}
+        {% include 'animated-background' %}
+    {% endif %}
+
     <div class="row top-buffer-register">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">

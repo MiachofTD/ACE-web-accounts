@@ -2,9 +2,13 @@
 
 {% block title %}Log in{% endblock %}
 
-{% block bodyclass %}login{% endblock %}
+{% block bodyclass %}auth login{% endblock %}
 
 {% block content %}
+    {% if config( 'layout.background.animated' ) %}
+        {% include 'animated-background' %}
+    {% endif %}
+
     <div class="row top-buffer-login">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
