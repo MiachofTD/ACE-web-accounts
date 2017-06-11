@@ -34,8 +34,8 @@ Route::group( [ 'middleware' => 'secure' ], function () {
 
     // Password Reset Routes...
     Route::group( [ 'prefix' => 'password' ], function () {
-//        Route::get( '/reset', [ 'as' => 'password.request', 'uses' => 'Auth\PasswordController@showLinkRequestForm' ] );
-//        Route::post( '/email', [ 'as' => 'password.email', 'uses' => 'Auth\PasswordController@sendResetLinkEmail' ] );
+        Route::get( '/reset', [ 'as' => 'password.request', 'uses' => 'Auth\PasswordController@showLinkRequestForm' ] );
+        Route::post( '/email', [ 'as' => 'password.email', 'uses' => 'Auth\PasswordController@sendResetLinkEmail' ] );
 //
 //        Route::get( '/reset/{token}', [ 'as' => 'password.reset', 'uses' => 'Auth\ResetPasswordController@showResetForm' ] );
 //        Route::post( '/reset', [ 'uses' => 'Auth\ResetPasswordController@reset' ] );

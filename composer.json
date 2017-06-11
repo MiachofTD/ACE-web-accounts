@@ -24,7 +24,6 @@
         ],
         "files": [
             "helpers/api.php",
-            "helpers/db.php",
             "helpers/common.php",
             "helpers/model.php",
             "helpers/url.php"
