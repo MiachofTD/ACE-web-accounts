@@ -3,3 +3,4 @@
 composer.phar
 .vagrant
 public/phpinfo.php
+node_modules/*

@@ -9,7 +9,7 @@
         {% include 'animated-background' %}
     {% endif %}
 
-    <div class="row top-buffer-login">
+    <div class="row top-buffer">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -18,30 +18,30 @@
                     <form action="{{ route( 'auth.login' ) }}" method="POST" id="registration-form">
                         <div class="form-group">
                             <label for="account">Account:</label>
-                            <input type="text" name="account" id="account" class="form-control" placeholder="Account" required />
+                            <input type="text" name="account" id="account" class="form-control" placeholder="Account" required autofocus />
                         </div>
 
                         <div class="form-group">
                             <label for="password">Password:</label>
-                            <input type="password" name="password" id="password" class="form-control" placeholder="Password" required autofocus />
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Password" required />
                         </div>
 
                         <div class="form-group">
                             {{ csrf_field() }}
                             <input type="submit" value="Login" class="form-control btn btn-primary" /><br /><br />
                         </div>
-
-                        <div class="form-group">
-                            <strong><a href="{{ route( 'password.request' ) }}">Forgot Password</a></strong><br />
-                            <strong>Don't have an account? <a href="{{ route( 'auth.register' ) }}"> Click here</a></strong>
-                        </div>
                     </form>
 
-                    <span class="black-text">
-                        <br />You can download <a href="#">this batch file</a>
+                    <p>
+                        <strong><a href="{{ route( 'password.request' ) }}">Forgot Password</a></strong><br />
+                        <strong>Don't have an account? <a href="{{ route( 'auth.register' ) }}"> Click here</a></strong>
+                    </p>
+
+                    <p>
+                        You can download <a href="#">this batch file</a>
                         (Be sure to change the username and password in the file to what you registered with)
                         or add ac.aka-steve.com:9000 to your ThwargLauncher ACEServerList.xml file.
-                    </span>
+                    </p>
                 </div>
             </div>
         </div>
