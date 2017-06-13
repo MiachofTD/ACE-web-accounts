@@ -5,8 +5,12 @@ body {
   -o-background-size: cover;
   background-size: cover;
 
-  .top-buffer {
-    margin-top: 70px;
+  .vertical-center {
+    min-height: 100%; /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+
+    display: flex;
+    align-items: center;
   }
 
   & ul.events, & ul.characters {

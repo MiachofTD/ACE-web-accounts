@@ -1,8 +1,15 @@
 body {
   background: url("../img/stats-background.jpg") no-repeat center center fixed;
   background-size: cover; }
-  body .top-buffer {
-    margin-top: 70px; }
+  body .vertical-center {
+    min-height: 100%;
+    /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh;
+    /* These two lines are counted as one :-)       */
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center; }
   body ul.events, body ul.characters {
     margin: auto 5px; }
     body ul.events > li:nth-child(even), body ul.characters > li:nth-child(even) {
