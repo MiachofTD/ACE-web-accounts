@@ -42,7 +42,7 @@ body {
     margin-top: 100px;
   }
 
-  &.login .top-buffer {
+  &.login .top-buffer, &.password .top-buffer {
     margin-top: 180px;
   }
 }
