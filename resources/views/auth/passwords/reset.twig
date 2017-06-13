@@ -3,6 +3,10 @@
 {% block bodyclass %}auth password{% endblock %}
 
 {% block content %}
+    {% if config( 'layout.animated_background' ) %}
+        {% include 'animated-background' %}
+    {% endif %}
+
     <div class="row vertical-center">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-default">
