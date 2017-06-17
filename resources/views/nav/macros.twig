@@ -6,17 +6,17 @@
     </li>
 {% endmacro %}
 
-{% macro dropdownOpen(class, route, partialRoute, name) %}
+{% macro dropdownOpen(route, partialRoute, name, class) %}
     <li class="dropdown {{ class }}-menu{% if partialRoute in route %} active{% endif %}">
         <a href="#" class="dropdown-toggle" id="{{ class }}-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             {{ name }} <span class="caret"></span>
         </a>
-    <ul class="inverse-dropdown dropdown-menu" role="menu">
+        <ul class="inverse-dropdown dropdown-menu" role="menu">
 {% endmacro %}
 
-{% macro dropdownItem(class, url, name) %}
-    <li class="{{ class }}-menu">
-        <a href="{{ url }}">{{ name }}</a>
+{% macro dropdownItem(route, parameters, current, name, class, disabled) %}
+    <li class="{{ class }}-menu{% if route == current %} active{% endif %}{% if disabled|default(false) %} disabled{% endif %}">
+        <a href="{{ route( route ) }}">{{ name }}</a>
     </li>
 {% endmacro %}
 

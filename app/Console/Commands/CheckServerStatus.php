@@ -54,8 +54,12 @@ class CheckServerStatus extends Command
 
         socket_set_timeout( $fp, 1, 500 );
 
-        //This is a specific packet the server will respond to
-        //See the Thwargle launcher for another implementation of this packet https://github.com/Thwargle/ThwargLauncher
+        /**
+         * This is a specific packet the server will respond to
+         *
+         * @see https://github.com/Thwargle/ThwargLauncher
+         * The Thwargle launcher has the C# implementation of this packet, which is where I got it from.
+         */
         $packet = hex2bin( "00000000000001009300d005000000004000000004003138303200003400000001000000000000003eb8a8581c006163736572766572747261636b65723a6a6a3968323668637367676300000000000000000000" );
         fwrite( $fp, $packet );
 

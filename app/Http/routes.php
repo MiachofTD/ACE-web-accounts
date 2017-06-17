@@ -26,8 +26,11 @@ Route::group( [ 'middleware' => 'secure' ], function () {
     Route::group( [ 'middleware' => 'check.login' ], function () {
         Route::get( '/', [ 'as' => 'dashboard', 'uses' => 'HomeController@index' ] );
 
+        Route::get( 'profile', [ 'as' => 'profile.index', 'uses' => 'ProfileController@index' ] );
+        Route::post( 'profile', [ 'uses' => 'ProfileController@update' ] );
+
         Route::group( [ 'prefix' => 'characters' ], function () {
-            Route::get( '/', [ 'as' => 'characters', 'uses' => 'CharacterController@all' ] );
+            Route::get( '/', [ 'as' => 'characters.all', 'uses' => 'CharacterController@all' ] );
             Route::get( '/{id}', [ 'as' => 'characters.index', 'uses' => 'CharacterController@index' ] );
         } );
     } );

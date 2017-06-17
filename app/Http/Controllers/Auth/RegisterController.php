@@ -5,7 +5,7 @@ namespace Ace\Http\Controllers\Auth;
 use Ace\Models\User;
 use Ace\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Ace\Http\Requests\RegistrationRequest;
+use Ace\Http\Requests\RegisterRequest;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class RegisterController extends Controller
@@ -34,24 +34,6 @@ class RegisterController extends Controller
     }
 
     /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array $data
-     *
-     * @return User
-     */
-    protected function create( array $data )
-    {
-        return user()->create( [
-            'account' => $data[ 'account' ],
-            'password' => bcrypt( $data[ 'password' ] ),
-            'email' => $data[ 'email' ],
-            'accesslevel' => env( 'ACCESS_LEVEL', 5 ),
-            'salt' => Hash::make( rand( 0, 9999999 ) ),
-        ] );
-    }
-
-    /**
      * @return \Illuminate\Contracts\View\View
      */
     public function index()
@@ -61,13 +43,19 @@ class RegisterController extends Controller
     }
 
     /**
-     * @param RegistrationRequest $request
+     * @param RegisterRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function register( RegistrationRequest $request )
+    public function register( RegisterRequest $request )
     {
-        $this->create( $request->only( [ 'account', 'password', 'email' ] ) );
+        user()->create( [
+            'account' => $request->get( 'account' ),
+            'password' => bcrypt( $request->get( 'password' ) ),
+            'email' => $request->get( 'email' ),
+            'accesslevel' => env( 'ACCESS_LEVEL', 5 ),
+            'salt' => Hash::make( rand( 0, 9999999 ) ),
+        ] );
 
         return redirect()->route( 'auth.login' )->with( 'message.success', 'You have successfully registered.' );
     }

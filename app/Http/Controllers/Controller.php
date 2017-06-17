@@ -24,40 +24,14 @@ class Controller extends BaseController
      */
     public function __construct()
     {
-        $this->viewShare();
-    }
-
-    /**
-     * @return $this
-     */
-    protected function viewShare()
-    {
-        view()->share( 'currentRoute', Route::currentRouteName() );
-
-        $messages[ 'errors' ] = session()->get( 'message.error' );
-        $messages[ 'success' ] = session()->get( 'message.success' );
-        $messages[ 'warning' ] = session()->get( 'message.warning' );
-
-        //Make sure we clear out all messages from the session
-        session()->forget( 'message.error' );
-        session()->forget( 'message.success' );
-        session()->forget( 'message.warning' );
-
-        view()->share( 'messages', $messages );
-
-        $serverStatus = Artisan::call( 'server:check-status', [
-            '--server' => config( 'server.acserver.hostname', '' ),
-            '--port' => config( 'server.acserver.port', 9000 ),
-        ] );
-
-        view()->share( 'serverStatus', $serverStatus );
-
-        return $this;
+        $this->getRouteName()
+            ->getMessages()
+            ->checkServerStatus();
     }
 
     /**
      * @param string $key
-     * @param string $value
+     * @param mixed $value
      *
      * @return $this
      */
@@ -66,5 +40,45 @@ class Controller extends BaseController
         $this->context[ $key ] = $value;
 
         return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    protected function getRouteName()
+    {
+        return $this->addContext( 'currentRoute', Route::currentRouteName() );
+    }
+
+    /**
+     * @return $this
+     */
+    protected function checkServerStatus()
+    {
+        $serverStatus = Artisan::call( 'server:check-status', [
+            '--server' => config( 'server.acserver.hostname', '' ),
+            '--port' => config( 'server.acserver.port', 9000 ),
+        ] );
+
+        return $this->addContext( 'serverStatus', $serverStatus );
+    }
+
+    /**
+     * @return $this
+     */
+    protected function getMessages()
+    {
+        $messages = [
+            'errors' => session()->get( 'message.error' ),
+            'success' => session()->get( 'message.success' ),
+            'warning' => session()->get( 'message.warning' ),
+        ];
+
+        //Make sure we clear out all messages from the session
+        session()->forget( 'message.error' );
+        session()->forget( 'message.success' );
+        session()->forget( 'message.warning' );
+
+        return $this->addContext( 'messages', $messages );
     }
 }

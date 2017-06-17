@@ -4,14 +4,7 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-
-  .vertical-center {
-    min-height: 100%; /* Fallback for browsers do NOT support vh unit */
-    min-height: 100vh; /* These two lines are counted as one :-)       */
-
-    display: flex;
-    align-items: center;
-  }
+  margin-top: 70px;
 
   & ul.events, & ul.characters {
     margin: auto 5px;
@@ -33,6 +26,14 @@ body {
   -o-background-size: cover;
   background-size: cover;
 
+  .vertical-center {
+    min-height: 100%; /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh; /* These two lines are counted as one :-)       */
+
+    display: flex;
+    align-items: center;
+  }
+
   & h2 {
     margin-top: inherit;
   }
@@ -43,10 +44,10 @@ body {
   }
 
   &.register .top-buffer {
-    margin-top: 100px;
+    margin-top: 30px;
   }
 
   &.login .top-buffer, &.password .top-buffer {
-    margin-top: 180px;
+    margin-top: 110px;
   }
 }

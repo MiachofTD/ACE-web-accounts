@@ -1,9 +1,9 @@
 <ul class="nav navbar-nav">
     {{ nav.menuItem( 'dashboard', {}, currentRoute, 'Dashboard' ) }}
 
-    {{ nav.dropdownOpen( 'profile', currentRoute, 'login', 'Profile' ) }}
-        {{ nav.dropdownItem( 'profile', 'characters', 'Characters' ) }}
-        {{ nav.dropdownItem( 'profile', 'login', 'Change Password' ) }}
+    {{ nav.dropdownOpen( currentRoute, 'profile', 'Profile', 'profile' ) }}
+        {{ nav.dropdownItem( 'profile.index', {}, currentRoute, 'My Profile', 'profile' ) }}
+        {{ nav.dropdownItem( 'characters.all', {}, currentRoute, 'Characters', 'profile' ) }}
     {{ nav.dropdownClose() }}
 
     {{ nav.menuItem( 'auth.logout', {}, currentRoute, 'Logout' ) }}

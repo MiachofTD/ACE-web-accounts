@@ -91,4 +91,26 @@ class User extends Authenticatable
 
         $this->accessLevel = array_get( $this->accessLevels, $this->accessLevel, 'Player' );
     }
+
+    /**
+     * Update the model in the database.
+     *
+     * @param  array $parameters
+     * @param  array $options
+     *
+     * @return bool|int
+     */
+    public function update( array $parameters = [], array $options = [] )
+    {
+        $attributes = [
+            'email' => array_get( $parameters, 'email' )
+        ];
+
+        $password = array_get( $parameters, 'password', '' );
+        if ( !empty( $password ) ) {
+            $attributes[ 'password' ] = bcrypt( $password );
+        }
+
+        return parent::update( $attributes, $options );
+    }
 }
