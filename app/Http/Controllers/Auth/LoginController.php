@@ -48,7 +48,7 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view()->make( 'auth.login', [] );
+        return view()->make( 'auth.login', $this->context );
     }
 
     /**

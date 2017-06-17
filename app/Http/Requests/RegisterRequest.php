@@ -10,7 +10,7 @@ namespace Ace\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegistrationRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,8 +30,8 @@ class RegistrationRequest extends FormRequest
     public function rules()
     {
         return [
-            'account' => 'required|min:3|max:32|lowercase_alpha_dash|unique:account',
-            'email' => 'required|email',
+            'account' => 'required|min:3|max:32|lowercase_alpha_dash|unique:account,account',
+            'email' => 'required|email|unique:account,email',
             'g-recaptcha-response' => 'required',
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required|min:6',

@@ -134,11 +134,11 @@ class GitHubEvent
     {
         switch ( $this->type ) {
             case 'PullRequestEvent':
-            case 'PullRequestReviewCommentEvent':
                 return array_get( $this->payload, 'pull_request.html_url', '#' );
             break;
 
             case 'IssueCommentEvent':
+            case 'PullRequestReviewCommentEvent':
                 return array_get( $this->payload, 'comment.html_url', '#' );
             break;
 
@@ -164,7 +164,6 @@ class GitHubEvent
     {
         switch ( $this->type ) {
             case 'PullRequestEvent':
-            case 'PullRequestReviewCommentEvent':
                 $repo = array_get( $this->repo, 'name', '' );
                 $number = array_get( $this->payload, 'number', 1 );
                 $title = array_get( $this->payload, 'pull_request.title', '' );
@@ -173,8 +172,16 @@ class GitHubEvent
                 return '[' . $repo . '] Pull request ' . $action . ': #' . $number . ' ' . $title;
             break;
 
+            case 'PullRequestReviewCommentEvent':
+                $repo = array_get( $this->repo, 'name', '' );
+                $prNumber = array_get( $this->payload, 'pull_request.number', 1 );
+                $title = array_get( $this->payload, 'pull_request.title', '' );
+
+                return '[' . $repo . '] Review comment added: #' . $prNumber . ' ' . $title;
+            break;
+
             case 'IssueCommentEvent':
-                $issueNumber = array_get( $this->payload, 'issue.number' );
+                $issueNumber = array_get( $this->payload, 'issue.number', 1 );
 
                 return 'Comment added to issue #' . $issueNumber;
             break;
@@ -206,9 +213,23 @@ class GitHubEvent
     {
         $description = '';
         switch ( $this->type ) {
+            case 'DeleteEvent':
+                $type = array_get( $this->payload, 'ref_type', '' );
+                $reference = array_get( $this->payload, 'ref', '' );
+                $user = array_get( $this->actor, 'login', '' );
+                $description = $user . ' deleted the ' . $reference . ' ' . $type . '.';
+            break;
+
+            case 'IssueCommentEvent':
+                $description = array_get( $this->payload, 'comment.body' );
+            break;
+
             case 'PullRequestEvent':
-            case 'PullRequestReviewCommentEvent':
                 $description = array_get( $this->payload, 'pull_request.body', '' );
+            break;
+
+            case 'PullRequestReviewCommentEvent':
+                $description = array_get( $this->payload, 'comment.body', '' );
             break;
 
             case 'PushEvent':
@@ -224,10 +245,6 @@ class GitHubEvent
                 }
 
                 $description = implode( '<br />', $texts );
-            break;
-
-            case 'IssueCommentEvent':
-                $description = array_get( $this->payload, 'comment.body' );
             break;
         }
 
