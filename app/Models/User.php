@@ -102,9 +102,7 @@ class User extends Authenticatable
      */
     public function update( array $parameters = [], array $options = [] )
     {
-        $attributes = [
-            'email' => array_get( $parameters, 'email' )
-        ];
+        $attributes = array_except( $parameters, [ 'password' ] );
 
         $password = array_get( $parameters, 'password', '' );
         if ( !empty( $password ) ) {
