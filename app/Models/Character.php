@@ -2,8 +2,8 @@
 
 namespace Ace\Models;
 
+use Exception;
 use Carbon\Carbon;
-use Carbon\CarbonInterval;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
@@ -103,26 +103,36 @@ class Character extends Model
             return '';
         }
 
-        $property = $this->getProperty( $prop[ 'id' ], $prop[ 'table' ] );
+        try {
+            $property = $this->getProperty( $prop[ 'id' ], $prop[ 'table' ] );
 
-        //Because apparently Carbon can't parse a timestamp without help
-        if ( $name == 'birthdate' ) {
-            return Carbon::createFromFormat( 'U', $property )->timezone( 'America/Chicago' );
-        }
-        else if ( $name == 'age' ) {
-            $birthdate = $this->property( 'birthdate' );
-            $age = $birthdate->copy()->addseconds( $property );
+            //Because apparently Carbon can't parse a timestamp without help
+            if ( $name == 'birthdate' ) {
+                return Carbon::createFromFormat( 'U', $property )->timezone( 'America/Chicago' );
+            }
+            else if ( $name == 'age' ) {
+                $birthdate = $this->property( 'birthdate' );
 
-            return $birthdate->diff( $age );
-        }
-        else if ( strpos( $name, 'date' ) !== false ) {
-            return Carbon::parse( $property );
-        }
-        else if ( array_has( $prop, 'options' ) ) {
-            return array_get( $prop[ 'options' ], $property, '' );
-        }
+                if ( $birthdate instanceof Carbon ) {
+                    $age = $birthdate->copy()->addseconds( $property );
 
-        return $property;
+                    return $birthdate->diff( $age );
+                }
+
+                return 0;
+            }
+            else if ( strpos( $name, 'date' ) !== false ) {
+                return Carbon::parse( $property );
+            }
+            else if ( array_has( $prop, 'options' ) ) {
+                return array_get( $prop[ 'options' ], $property, '' );
+            }
+
+            return $property;
+        }
+        catch ( Exception $e ) {
+            return '';
+        }
     }
 
     /**
