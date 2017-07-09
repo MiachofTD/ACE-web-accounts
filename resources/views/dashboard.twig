@@ -17,8 +17,7 @@
                                 {% for event in github %}
                                     <li id="event-{{ event.id }}" class="event list-group-item">
                                         <a href="https://github.com/{{ event.getLogin() }}">{{ event.getUsername() }}</a> {{ event.createdAt.timezone( 'America/Chicago' ).format( 'm/d/Y g:i:s a' ) }}<br />
-                                        <a href="{{ event.getUrl() }}" target="_blank">{{ event.getLinkText() }}</a><br />
-                                        {#{ dump( event.getDescription() ) }#}
+                                        {% if event.getLinkText() is not empty %}<a href="{{ event.getUrl() }}" target="_blank">{{ event.getLinkText() }}</a><br />{% endif %}
                                         {{ event.getDescription()|raw }}
                                     </li>
                                 {% endfor %}
