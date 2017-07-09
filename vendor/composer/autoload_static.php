@@ -306,6 +306,7 @@ class ComposerStaticInit95d661e68b0bd0a611fb7345446a2ffc
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'IlluminateQueueClosure' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
+        'UserTableEmailField' => __DIR__ . '/../..' . '/database/migrations/2017_07_09_150320_UserTableEmailField.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

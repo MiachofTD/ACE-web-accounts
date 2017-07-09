@@ -70,7 +70,7 @@ return [
             'driver' => 'mysql',
             'host' => env( 'DB_HOST', 'localhost' ),
             'port' => env( 'DB_PORT', '3306' ),
-            'database' => env( 'CHARACTER_DATABASE', 'ace_character' ),
+            'database' => env( 'CHARACTER_DATABASE', 'ace_shard' ),
             'username' => env( 'DB_USERNAME', 'acemu' ),
             'password' => env( 'DB_PASSWORD', '' ),
             'charset' => 'utf8',

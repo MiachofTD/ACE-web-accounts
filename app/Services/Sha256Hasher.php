@@ -21,6 +21,9 @@ class Sha256Hasher implements HasherContract
      */
     public function make( $value, array $options = [] )
     {
+        if ( array_has( $options, 'salt' ) ) {
+            return hash( 'sha256', hash( 'sha256', $value ) . $options[ 'salt' ] );
+        }
         return hash( 'sha256', $value );
     }
 
@@ -35,6 +38,10 @@ class Sha256Hasher implements HasherContract
     {
         if ( strlen( $hashedValue ) === 0 ) {
             return false;
+        }
+
+        if ( array_has( $options, 'salt' ) ) {
+            return ( hash( 'sha256', hash( 'sha256', $value ) . $options[ 'salt' ] ) === $hashedValue );
         }
 
         return ( hash( 'sha256', $value ) === $hashedValue );

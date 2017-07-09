@@ -39,6 +39,7 @@ class RegisterController extends Controller
     public function index()
     {
         $this->addContext( 'recaptchaKey', config( 'services.recaptcha.key', '' ) );
+
         return view()->make( 'auth.register', $this->context );
     }
 
@@ -49,12 +50,13 @@ class RegisterController extends Controller
      */
     public function register( RegisterRequest $request )
     {
+        $salt = Hash::make( rand( 0, 9999999 ) );
         user()->create( [
             'account' => $request->get( 'account' ),
-            'password' => bcrypt( $request->get( 'password' ) ),
+            'password' => Hash::make( $request->get( 'password' ), [ 'salt' => $salt ] ),
             'email' => $request->get( 'email' ),
             'accesslevel' => env( 'ACCESS_LEVEL', 5 ),
-            'salt' => Hash::make( rand( 0, 9999999 ) ),
+            'salt' => $salt,
         ] );
 
         return redirect()->route( 'auth.login' )->with( 'message.success', 'You have successfully registered.' );

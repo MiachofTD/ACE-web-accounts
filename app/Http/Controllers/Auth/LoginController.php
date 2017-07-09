@@ -2,8 +2,6 @@
 
 namespace Ace\Http\Controllers\Auth;
 
-use Ace\Models\User;
-use Illuminate\Http\Request;
 use Ace\Http\Controllers\Controller;
 use Ace\Auth\AuthenticatesUsers as Username;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
