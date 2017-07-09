@@ -3,7 +3,7 @@
 namespace Ace\Providers;
 
 use Ace\Auth\Guard as AceGuard;
-use Illuminate\Auth\EloquentUserProvider;
+use Ace\Auth\UserProvider as AceUserProvider;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -31,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
 
         auth()->extend( 'ace', function ( $app, $name, array $config ) {
             $providerConfig = $this->app[ 'config' ][ 'auth.providers.' . $config[ 'provider' ] ];
-            $provider = new EloquentUserProvider( $this->app[ 'hash' ], $providerConfig[ 'model' ] );
+            $provider = new AceUserProvider( $this->app[ 'hash' ], $providerConfig[ 'model' ] );
 
             return new AceGuard( $name, $provider, $this->app[ 'session.store' ], $app->request );
         } );

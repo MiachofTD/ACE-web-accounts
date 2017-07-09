@@ -42,12 +42,14 @@ class RegisterController extends Controller
      */
     protected function create( array $data )
     {
+        $salt = Hash::make( rand( 0, 9999999 ) );
+
         return user()->create( [
             'account' => $data[ 'account' ],
-            'password' => bcrypt( $data[ 'password' ] ),
+            'password' => Hash::make( $data[ 'password' ], [ 'salt', $salt ] ),
             'email' => $data[ 'email' ],
             'accesslevel' => env( 'ACCESS_LEVEL', 5 ),
-            'salt' => Hash::make( rand( 0, 9999999 ) ),
+            'salt' => $salt,
         ] );
     }
 
