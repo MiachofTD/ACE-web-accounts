@@ -2,6 +2,7 @@
 
 namespace Ace\Models;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -106,7 +107,7 @@ class User extends Authenticatable
 
         $password = array_get( $parameters, 'password', '' );
         if ( !empty( $password ) ) {
-            $attributes[ 'password' ] = bcrypt( $password );
+            $attributes[ 'password' ] = Hash::make( $password, [ 'salt' => $this->getAttribute( 'salt' ) ] );
         }
 
         return parent::update( $attributes, $options );
