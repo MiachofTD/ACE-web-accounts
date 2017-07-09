@@ -21,7 +21,7 @@ class Character extends Model
      *
      * @var string
      */
-    protected $table = 'character';
+    protected $table = 'vw_ace_character';
 
     /**
      * The primary key for the model.
@@ -68,9 +68,23 @@ class Character extends Model
             return $this->{$table . 'Properties'};
         }
 
-        $properties = DB::connection( $this->connection )->table( 'character_properties_' . $table )->where( 'guid', $this->getAttribute( 'guid' ) )->get();
+        $prefix = $table . 'Property';
+        if ( $table == 'string' ) {
+            $prefix = 'strProperty';
+        }
+        elseif ( $table == 'bigint' ) {
+            $prefix = 'bigIntProperty';
+        }
+        elseif ( $table == 'double' ) {
+            $prefix = 'dblProperty';
+        }
+        elseif ( $table == 'skill' || $table == 'spell' ) {
+            $prefix = $table;
+        }
+
+        $properties = DB::connection( $this->connection )->table( 'ace_object_properties_' . $table )->where( 'aceObjectId', $this->getAttribute( 'guid' ) )->get();
         foreach ( $properties as $property ) {
-            $this->{$table . 'Properties'}[ $property->propertyId ] = $property->propertyValue;
+            $this->{$table . 'Properties'}[ $property->{$prefix . 'Id' } ] = $property->propertyValue;
         }
 
         return $this->{$table . 'Properties'};

@@ -13,7 +13,7 @@ return [
     ],
     'title' => [
         'table' => 'string',
-        'id' => 2,
+        'id' => 3,
     ],
     'total-xp' => [
         'table' => 'int',
