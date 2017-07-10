@@ -1,5 +1,5 @@
 {% macro menuItem(route, parameters, current, name, disabled) %}
-    <li class="nav {% if route == current %}active{% endif %}{% if disabled|default(false) %} disabled{% endif %}">
+    <li class="nav {% if route == current.getName() %}active{% endif %}{% if disabled|default(false) %} disabled{% endif %}">
         <a href="{% if disabled|default(false) == false %}{{ route( route, parameters ) }}{% else %}#{% endif %}">
             {{ name }}
         </a>
@@ -15,7 +15,7 @@
 {% endmacro %}
 
 {% macro dropdownItem(route, parameters, current, name, class, disabled) %}
-    <li class="{{ class }}-menu{% if route == current %} active{% endif %}{% if disabled|default(false) %} disabled{% endif %}">
+    <li class="{{ class }}-menu{% if route == current.getName() %} active{% endif %}{% if disabled|default(false) %} disabled{% endif %}">
         <a href="{{ route( route ) }}">{{ name }}</a>
     </li>
 {% endmacro %}

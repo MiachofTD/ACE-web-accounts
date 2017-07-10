@@ -26,10 +26,6 @@ body {
   .auth #messages {
     padding-top: 30px;
     float: left; }
-  .auth.register .top-buffer {
-    margin-top: 30px; }
-  .auth.login .top-buffer, .auth.password .top-buffer {
-    margin-top: 110px; }
 
 .navbar .navbar-brand {
   padding: 6px 15px; }

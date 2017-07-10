@@ -84,6 +84,9 @@ class ComposerStaticInit95d661e68b0bd0a611fb7345446a2ffc
         'D' => 
         array (
             'Dotenv\\' => 7,
+            'Doctrine\\Common\\Cache\\' => 22,
+            'Doctrine\\Common\\Annotations\\' => 28,
+            'Doctrine\\Common\\' => 16,
             'DebugBar\\' => 9,
         ),
         'C' => 
@@ -229,6 +232,18 @@ class ComposerStaticInit95d661e68b0bd0a611fb7345446a2ffc
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
+        'Doctrine\\Common\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache',
+        ),
+        'Doctrine\\Common\\Annotations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/annotations/lib/Doctrine/Common/Annotations',
+        ),
+        'Doctrine\\Common\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
+        ),
         'DebugBar\\' => 
         array (
             0 => __DIR__ . '/..' . '/maximebf/debugbar/src/DebugBar',
@@ -288,9 +303,21 @@ class ComposerStaticInit95d661e68b0bd0a611fb7345446a2ffc
         ),
         'D' => 
         array (
+            'Doctrine\\DBAL\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/dbal/lib',
+            ),
+            'Doctrine\\Common\\Lexer\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
+            ),
             'Doctrine\\Common\\Inflector\\' => 
             array (
                 0 => __DIR__ . '/..' . '/doctrine/inflector/lib',
+            ),
+            'Doctrine\\Common\\Collections\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/collections/lib',
             ),
         ),
         'B' => 
@@ -303,10 +330,11 @@ class ComposerStaticInit95d661e68b0bd0a611fb7345446a2ffc
     );
 
     public static $classMap = array (
+        'AddAutoIncrementToAccountTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_09_194104_add_auto_increment_to_account_table.php',
+        'AddEmailFieldToAccountTable' => __DIR__ . '/../..' . '/database/migrations/2017_07_09_150320_add_email_field_to_account_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'IlluminateQueueClosure' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
-        'UserTableEmailField' => __DIR__ . '/../..' . '/database/migrations/2017_07_09_150320_UserTableEmailField.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

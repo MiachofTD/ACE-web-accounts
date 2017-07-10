@@ -42,12 +42,4 @@ body {
     padding-top: 30px;
     float: left;
   }
-
-  &.register .top-buffer {
-    margin-top: 30px;
-  }
-
-  &.login .top-buffer, &.password .top-buffer {
-    margin-top: 110px;
-  }
 }

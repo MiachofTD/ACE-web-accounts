@@ -8,6 +8,7 @@
 
 namespace Ace\Auth;
 
+use Ace\Models\User;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 
@@ -16,8 +17,8 @@ class UserProvider extends EloquentUserProvider
     /**
      * Validate a user against the given credentials.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable $user
-     * @param  array                                      $credentials
+     * @param  \Illuminate\Contracts\Auth\Authenticatable|User $user
+     * @param  array                                           $credentials
      *
      * @return bool
      */
