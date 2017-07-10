@@ -12,7 +12,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return response()->make( 'profile.index', $this->context );
+        return response()->view( 'profile.index', $this->context );
     }
 
     /**

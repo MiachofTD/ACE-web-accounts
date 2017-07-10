@@ -27,7 +27,7 @@ class CharacterController extends Controller
         }
 
         $this->addContext( 'character', $character );
-        return response()->make( 'characters.index', $this->context );
+        return response()->view( 'characters.index', $this->context );
     }
 
     /**
@@ -46,6 +46,6 @@ class CharacterController extends Controller
         } );
 
         $this->addContext( 'characters', $characters );
-        return response()->make( 'characters.all', $this->context );
+        return response()->view( 'characters.all', $this->context );
     }
 }

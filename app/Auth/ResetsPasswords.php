@@ -18,13 +18,13 @@ trait ResetsPasswords
     public function showLinkRequestForm()
     {
         if ( property_exists( $this, 'linkRequestView' ) ) {
-            return response()->make( $this->linkRequestView );
+            return response()->view( $this->linkRequestView );
         }
 
         if ( view()->exists( 'auth.passwords.email' ) ) {
-            return response()->make( 'auth.passwords.email', $this->context );
+            return response()->view( 'auth.passwords.email', $this->context );
         }
 
-        return response()->make( 'auth.password', $this->context );
+        return response()->view( 'auth.password', $this->context );
     }
 }
