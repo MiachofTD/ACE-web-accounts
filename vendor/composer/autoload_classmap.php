@@ -6,8 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddAutoIncrementToAccountTable' => $baseDir . '/database/migrations/2017_07_09_194104_add_auto_increment_to_account_table.php',
+    'AddEmailFieldToAccountTable' => $baseDir . '/database/migrations/2017_07_09_150320_add_email_field_to_account_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'IlluminateQueueClosure' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
-    'UserTableEmailField' => $baseDir . '/database/migrations/2017_07_09_150320_UserTableEmailField.php',
 );

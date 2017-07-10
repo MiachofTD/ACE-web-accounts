@@ -13,6 +13,6 @@ class HomeController extends Controller
     {
         $this->addContext( 'github', github()->organizationEvents()->slice( 0, 5 ) );
 
-        return response()->view( 'dashboard', $this->context );
+        return response()->make( 'dashboard', $this->context );
     }
 }

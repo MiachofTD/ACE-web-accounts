@@ -40,7 +40,7 @@ class RegisterController extends Controller
     {
         $this->addContext( 'recaptchaKey', config( 'services.recaptcha.key', '' ) );
 
-        return view()->make( 'auth.register', $this->context );
+        return response()->make( 'auth.register', $this->context );
     }
 
     /**

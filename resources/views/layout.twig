@@ -22,7 +22,7 @@
     <body class="{% block bodyclass %}{% endblock %}">
         <div class="container">
             <header>
-                {% if 'auth.' not in currentRoute and 'password.' not in currentRoute %}
+                {% if 'auth.' not in currentRoute.getName() and 'password.' not in currentRoute.getName() %}
                     {% include 'navigation' %}
                 {% endif %}
                 {% include 'messages' %}

@@ -3,8 +3,8 @@
 namespace Ace\Http\Controllers\Auth;
 
 use Ace\Http\Controllers\Controller;
-use Ace\Auth\AuthenticatesUsers as Username;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Ace\Auth\AuthenticatesUsers as Authenticates;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class LoginController extends Controller
@@ -20,8 +20,8 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins, Username {
-        Username::loginUsername insteadof AuthenticatesAndRegistersUsers;
+    use AuthenticatesAndRegistersUsers, ThrottlesLogins, Authenticates {
+        Authenticates::loginUsername insteadof AuthenticatesAndRegistersUsers;
     }
 
     /**

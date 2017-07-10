@@ -2,9 +2,12 @@
 
 namespace Ace\Http\Controllers\Auth;
 
+use Ace\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Ace\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Ace\Auth\ResetsPasswords as Resets;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
@@ -21,7 +24,9 @@ class PasswordController extends Controller
     |
     */
 
-    use ResetsPasswords;
+    use ResetsPasswords, Resets {
+        Resets::showLinkRequestForm insteadof ResetsPasswords;
+    }
 
     /**
      * Where to redirect users after login / registration.
@@ -72,15 +77,15 @@ class PasswordController extends Controller
     /**
      * Reset the given user's password.
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword $user
-     * @param  string                                      $password
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword|User $user
+     * @param  string                                           $password
      *
      * @return void
      */
     protected function resetPassword( $user, $password )
     {
         $user->forceFill( [
-            'password' => bcrypt( $password ),
+            'password' => Hash::make( $password, [ 'salt' => $user->getAttribute( 'salt' ) ] ),
         ] )->save();
 
         auth()->guard( $this->getGuard() )->login( $user );

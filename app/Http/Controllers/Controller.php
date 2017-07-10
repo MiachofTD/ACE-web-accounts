@@ -24,7 +24,7 @@ class Controller extends BaseController
      */
     public function __construct()
     {
-        $this->getRouteName()
+        $this->getRoute()
             ->getMessages()
             ->checkServerStatus();
     }
@@ -45,9 +45,10 @@ class Controller extends BaseController
     /**
      * @return $this
      */
-    protected function getRouteName()
+    protected function getRoute()
     {
-        return $this->addContext( 'currentRoute', Route::currentRouteName() );
+        view()->share( 'currentRoute', Route::getCurrentRoute() );
+        return $this;
     }
 
     /**
