@@ -32,9 +32,13 @@ body {
 
 .navbar .status-up {
   background-color: green; }
+  .navbar .status-up a {
+    color: #fff !important; }
 
 .navbar .status-down {
   background-color: red; }
+  .navbar .status-down a {
+    color: #fff !important; }
 
 .navbar .inverse-dropdown {
   background-color: #222;
@@ -46,6 +50,12 @@ body {
       background-color: #000; }
   .navbar .inverse-dropdown > .divider {
     background-color: #000; }
+
+.character h3.deleted {
+  color: #f00; }
+
+.red {
+  color: #f00; }
 
 * {
   box-sizing: border-box; }

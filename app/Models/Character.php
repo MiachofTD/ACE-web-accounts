@@ -40,12 +40,22 @@ class Character extends Model
     /**
      * @var array
      */
-    protected $stringProperties = [];
+    protected $bigintProperties = [];
+
+    /**
+     * @var array
+     */
+    protected $boolProperties = [];
 
     /**
      * @var array
      */
     protected $intProperties = [];
+
+    /**
+     * @var array
+     */
+    protected $stringProperties = [];
 
     /**
      * Character constructor.
@@ -68,23 +78,21 @@ class Character extends Model
             return $this->{$table . 'Properties'};
         }
 
-        $prefix = $table . 'Property';
-        if ( $table == 'string' ) {
-            $prefix = 'strProperty';
-        }
-        elseif ( $table == 'bigint' ) {
-            $prefix = 'bigIntProperty';
-        }
-        elseif ( $table == 'double' ) {
-            $prefix = 'dblProperty';
-        }
-        elseif ( $table == 'skill' || $table == 'spell' ) {
-            $prefix = $table;
+        $field = config( 'character.tables.properties_' . $table . '.id', '' );
+
+        if ( empty( $field ) ) {
+            $field = $table . 'Id';
         }
 
-        $properties = DB::connection( $this->connection )->table( 'ace_object_properties_' . $table )->where( 'aceObjectId', $this->getAttribute( 'guid' ) )->get();
+        $properties = DB::connection( $this->connection )
+            ->table( 'ace_object_properties_' . $table )
+            ->where( 'aceObjectId', $this->getAttribute( 'guid' ) )
+            ->get();
         foreach ( $properties as $property ) {
-            $this->{$table . 'Properties'}[ $property->{$prefix . 'Id' } ] = $property->propertyValue;
+            array_set( $this->{$table . 'Properties'}, $property->{$field}, $property->propertyValue );
+            if ( $table == 'bool' ) {
+                array_set( $this->{$table . 'Properties'}, $property->{$field}, filter_var( $property->propertyValue, FILTER_VALIDATE_BOOLEAN ) );
+            }
         }
 
         return $this->{$table . 'Properties'};
@@ -97,7 +105,7 @@ class Character extends Model
      */
     public function property( $name )
     {
-        $prop = config( 'character.' . $name, [] );
+        $prop = config( 'character.properties.' . $name, [] );
 
         if ( empty( $prop ) ) {
             return '';
@@ -107,8 +115,12 @@ class Character extends Model
             $property = $this->getProperty( $prop[ 'id' ], $prop[ 'table' ] );
 
             //Because apparently Carbon can't parse a timestamp without help
-            if ( $name == 'birthdate' ) {
-                return Carbon::createFromFormat( 'U', $property )->timezone( 'America/Chicago' );
+            if ( ( $name == 'birthdate' || $name == 'delete-date' ) ) {
+                if ( $property == 0 ) {
+                    return '';
+                }
+
+                return Carbon::createFromTimestamp( $property );
             }
             else if ( $name == 'age' ) {
                 $birthdate = $this->property( 'birthdate' );
@@ -143,8 +155,36 @@ class Character extends Model
      */
     public function getProperty( $id, $table = 'string' )
     {
+        //Make sure the properties array actually exists before trying to do anything to it
+        if ( !isset( $this->{$table . 'Properties'} ) ) {
+            $this->{$table . 'Properties'} = [];
+        }
+
         $this->getProperties( $table );
 
         return array_get( $this->{$table . 'Properties'}, $id, '' );
+    }
+
+    /**
+     * @param string $name
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public function updateProperty( $name, $value )
+    {
+        $prop = config( 'character.properties.' . $name, [] );
+
+        if ( !array_has( $prop, 'table' ) ) {
+            return false;
+        }
+
+        $field = config( 'character.tables.properties_' . array_get( $prop, 'table' ) . '.id', '' );
+
+        return DB::connection( $this->connection )
+            ->table( 'ace_object_properties_' . array_get( $prop, 'table' ) )
+            ->where( 'aceObjectId', $this->getAttribute( 'guid' ) )
+            ->where( $field, array_get( $prop, 'id' ) )
+            ->update( [ 'propertyValue' => $value ] );
     }
 }

@@ -2,7 +2,7 @@
 
 {% import 'characters.macros' as char %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Characters{% endblock %}
 
 {% block bodyclass %}characters{% endblock %}
 
@@ -17,9 +17,20 @@
                         {% if characters.count() > 0 %}
                             <ul class="characters list-group">
                                 {% for character in characters %}
-                                    <li id="character-{{ character.guid }}" class="character list-group-item">
-                                        <h3>
+                                    <li id="character-{{ character.guid }}" class="character list-group-item {{ character.property( 'delete-date' ) is not empty ? 'list-group-item-danger' : '' }}">
+                                        {% if character.property( 'delete-date' ) is not empty %}
+                                            <a class="btn btn-warning pull-right" href="{{ route( 'characters.restore', { id: character.guid } ) }}">restore</a>
+                                        {% else %}
+                                            <a class="btn btn-danger pull-right" href="#" data-href="{{ route( 'characters.delete', { id: character.guid } ) }}" data-toggle="modal" data-target="#confirm-delete">delete</a>
+                                            {#<a class="btn btn-danger pull-right" href="{{ route( 'characters.delete', { id: character.guid } ) }}">delete</a>#}
+                                        {% endif %}
+
+                                        <h3 class="list-group-item-heading">
                                             {{ character.property( 'name' ) }}, {{ character.property( 'title' ) }}
+
+                                            {% if character.property( 'delete-date' ) is not empty %}
+                                                <small>Will delete ( <span class="red">{{ character.property( 'delete-date' ).diffForHumans() }}</span> )</small>
+                                            {% endif %}
                                         </h3>
 
                                         <p>
@@ -40,4 +51,29 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="Confirm Delete" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Confirm Delete
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this character?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger btn-ok">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footerScripts %}
+    <script type="text/javascript">
+        $('#confirm-delete').on('show.bs.modal', function (e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+    </script>
 {% endblock %}
