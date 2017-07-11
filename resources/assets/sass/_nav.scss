@@ -5,10 +5,18 @@
 
   & .status-up {
     background-color: green;
+
+    & a {
+      color: #fff !important;
+    }
   }
 
   & .status-down {
     background-color: red;
+
+    & a {
+      color: #fff !important;
+    }
   }
 
   .inverse-dropdown {

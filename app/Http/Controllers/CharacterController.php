@@ -2,10 +2,8 @@
 
 namespace Ace\Http\Controllers;
 
+use Carbon\Carbon;
 use Ace\Models\Character;
-use Illuminate\Http\Request;
-
-use Ace\Http\Requests;
 use Illuminate\Support\Collection;
 
 class CharacterController extends Controller
@@ -37,6 +35,7 @@ class CharacterController extends Controller
     {
         $characters = character()
             ->where( 'accountId', auth()->id() )
+            ->where( 'deleted', 0 ) //Make sure we don't include any deleted characters
             ->get();
 
         /** @var $characters Collection */
@@ -46,6 +45,37 @@ class CharacterController extends Controller
         } );
 
         $this->addContext( 'characters', $characters );
+
         return response()->view( 'characters.all', $this->context );
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete( $id )
+    {
+        $character = character()->find( $id );
+
+        $now = Carbon::now()->addHour();
+
+        $character->updateProperty( 'delete-date', $now->format( 'U' ) );
+
+        return redirect()->back()->with( 'message.success', $character->property( 'name' ) . ' will be deleted in 60 minutes.' );
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function restore( $id )
+    {
+        $character = character()->find( $id );
+
+        $character->updateProperty( 'delete-date', 0 );
+
+        return redirect()->back()->with( 'message.success', $character->property( 'name' ) . ' has been restored.' );
     }
 }
