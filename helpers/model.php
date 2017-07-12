@@ -8,6 +8,7 @@
 
 use Ace\Models\User;
 use Ace\Models\Character;
+use Illuminate\Http\Request;
 
 if ( !function_exists( 'user' ) ) {
     /**
@@ -26,5 +27,19 @@ if ( !function_exists( 'character' ) ) {
     function character()
     {
         return app( Character::class );
+    }
+}
+
+if ( !function_exists( 'export_characters' ) ) {
+    function export_characters( Request $request )
+    {
+        $characterIds = $request->get( 'characters', [] );
+
+        $characters = character()
+            ->where( 'accountId', auth()->id() )
+            ->whereIn( 'guid', $characterIds ) //Make sure we don't include any deleted characters
+            ->get();
+
+        dd( $characters );
     }
 }

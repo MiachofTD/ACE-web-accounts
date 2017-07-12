@@ -1,0 +1,44 @@
+{% extends 'layout' %}
+
+{% import 'characters.macros' as char %}
+
+{% block title %}Export Characters{% endblock %}
+
+{% block bodyclass %}characters{% endblock %}
+
+{% block content %}
+    <div class="row top-buffer">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2>Export Characters</h2>
+
+                    <div class="row">
+                        <form action="{{ route( 'characters.export' ) }}" method="post" id="registration-form">
+                            <div class="form-group">
+                                <ul class="characters list-group">
+                                    {% if characters.count() > 0 %}
+                                        <li class="list-group-item">
+                                            <label for="characters">Choose which characters you want to export:</label>
+                                        </li>
+                                        {% for character in characters %}
+                                            <li id="character-{{ character.guid }}" class="character list-group-item {{ character.property( 'delete-date' ) is not empty ? 'list-group-item-danger' : '' }}">
+                                                <input type="checkbox" name="characters[]" value="{{ character.guid }}" />
+                                                {{ character.property( 'name' ) }}, {{ character.property( 'title' ) }}
+                                            </li>
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+                            </div>
+
+                            <div class="form-group">
+                                {{ csrf_field() }}
+                                <input type="submit" value="Export" class="form-control btn btn-primary" /><br /><br />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -13,7 +13,7 @@
                 <div class="panel-body">
                     <h2>Forgot Password  <img src="{{ public_asset( 'img/logoshaded.png' ) }}" height="45" alt="ACEmulator Logo" class="pull-right" /></h2>
 
-                    <form action="{{ route( 'password.email' ) }}" method="POST">
+                    <form action="{{ route( 'password.email' ) }}" method="post">
                         <div class="form-group">
                             <label for="email">E-mail Address</label>
                             <input type="text" name="email" id="email" required value="{{ old( 'email' ) }}" class="form-control" />

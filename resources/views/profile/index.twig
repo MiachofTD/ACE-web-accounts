@@ -9,7 +9,7 @@
                 <div class="panel-body">
                     <h2>My Profile</h2>
 
-                    <form action="{{ route( 'profile.index' ) }}" method="POST" id="profile-form">
+                    <form action="{{ route( 'profile.index' ) }}" method="post" id="profile-form">
                         <div class="form-group">
                             <label for="account">Account Name:</label>
                             <input type="text" name="account" id="account" class="form-control" value="{{ auth_user().account }}" disabled />

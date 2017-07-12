@@ -40,6 +40,21 @@ class Character extends Model
     /**
      * @var array
      */
+    protected $object = [];
+
+    /**
+     * @var array
+     */
+    protected $attribute = [];
+
+    /**
+     * @var array
+     */
+    protected $attribute2nd = [];
+
+    /**
+     * @var array
+     */
     protected $bigintProperties = [];
 
     /**
@@ -50,12 +65,42 @@ class Character extends Model
     /**
      * @var array
      */
+    protected $didProperties = [];
+
+    /**
+     * @var array
+     */
+    protected $doubleProperties = [];
+
+    /**
+     * @var array
+     */
+    protected $iidProperties = [];
+
+    /**
+     * @var array
+     */
     protected $intProperties = [];
 
     /**
      * @var array
      */
+    protected $skills = [];
+
+    /**
+     * @var array
+     */
+    protected $spells = [];
+
+    /**
+     * @var array
+     */
     protected $stringProperties = [];
+
+    /**
+     * @var array
+     */
+    protected $position = [];
 
     /**
      * Character constructor.
@@ -78,22 +123,34 @@ class Character extends Model
             return $this->{$table . 'Properties'};
         }
 
-        $field = config( 'character.tables.properties_' . $table . '.id', '' );
-
-        if ( empty( $field ) ) {
-            $field = $table . 'Id';
-        }
+        $field = config( 'character.tables.properties_' . $table . '.id', $table . 'Id' );
+        $array = config( 'charater.tables.properties_' . $table . '.array', $table . 'Properties' );
 
         $properties = DB::connection( $this->connection )
             ->table( 'ace_object_properties_' . $table )
             ->where( 'aceObjectId', $this->getAttribute( 'guid' ) )
             ->get();
         foreach ( $properties as $property ) {
-            array_set( $this->{$table . 'Properties'}, $property->{$field}, $property->propertyValue );
+            array_set( $this->{$array}, $property->{$field}, $property->propertyValue );
             if ( $table == 'bool' ) {
-                array_set( $this->{$table . 'Properties'}, $property->{$field}, filter_var( $property->propertyValue, FILTER_VALIDATE_BOOLEAN ) );
+                array_set( $this->{$array}, $property->{$field}, filter_var( $property->propertyValue, FILTER_VALIDATE_BOOLEAN ) );
             }
         }
+
+        return $this->{$array};
+    }
+
+    /**
+     * If we have properties data from the database that we want to set on the object, just set it.
+     *
+     * @param string $table
+     * @param array  $data
+     *
+     * @return mixed
+     */
+    public function setProperties( $table = 'string', $data = [] )
+    {
+        $this->{$table . 'Properties'} = $data;
 
         return $this->{$table . 'Properties'};
     }

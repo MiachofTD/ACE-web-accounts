@@ -4,6 +4,7 @@ namespace Ace\Http\Controllers;
 
 use Carbon\Carbon;
 use Ace\Models\Character;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class CharacterController extends Controller
@@ -42,11 +43,39 @@ class CharacterController extends Controller
         $characters->each( function( $item, $key ) {
             /** @var Character $item */
             $item->getProperties( 'int' );
+            $item->getProperties( 'string' );
         } );
 
         $this->addContext( 'characters', $characters );
 
         return response()->view( 'characters.all', $this->context );
+    }
+
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    public function export()
+    {
+        $characters = character()
+            ->where( 'accountId', auth()->id() )
+            ->where( 'deleted', 0 ) //Make sure we don't include any deleted characters
+            ->get();
+
+        /** @var $characters Collection */
+        $characters->each( function( $item, $key ) {
+            /** @var Character $item */
+            $item->getProperties( 'string' );
+        } );
+
+        $this->addContext( 'characters', $characters );
+
+        return response()->view( 'characters.export', $this->context );
+    }
+
+    public function exportCharacters( Request $request )
+    {
+        $export = export_characters( $request );
+        dd( $export );
     }
 
     /**

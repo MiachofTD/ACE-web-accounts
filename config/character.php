@@ -8,15 +8,18 @@
 
 return [
     'tables' => [
-        'object' => [ 'name' => 'ace_object' ],
-        'animation' => [ 'name' => 'ace_object_animation_change' ],
-        'palette' => [ 'name' => 'ace_object_palette_change' ],
+        'object' => [
+            'name' => 'ace_object',
+            'array' => 'object',
+        ],
         'properties_attribute' => [
             'name' => 'ace_object_properties_attribute',
+            'array' => 'attribute',
             'id' => 'attributeId'
         ],
         'properties_attribute2nd' => [
             'name' => 'ace_object_properties_attribute2nd',
+            'array' => 'attribute2nd',
             'id' => 'attribute2ndId'
         ],
         'properties_bigint' => [
@@ -45,17 +48,18 @@ return [
         ],
         'properties_skill' => [
             'name' => 'ace_object_properties_skill',
+            'array' => 'skills',
         ],
         'properties_spell' => [
             'name' => 'ace_object_properties_spell',
+            'array' => 'spells',
         ],
         'properties_string' => [
             'name' => 'ace_object_properties_string',
             'id' => 'strPropertyId'
         ],
-        'texture_map' => [ 'name' => 'ace_object_texture_map_change' ],
+//        'texture_map' => [ 'name' => 'ace_object_texture_map_change' ],
         'position' => [ 'name' => 'ace_position' ],
-        'weenie_class' => [ 'name' => 'ace_weenie_class' ],
     ],
     'properties' => [
         'name' => [

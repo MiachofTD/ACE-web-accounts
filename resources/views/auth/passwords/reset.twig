@@ -13,7 +13,7 @@
                 <div class="panel-body">
                     <h2>Reset Password  <img src="{{ public_asset( 'img/logoshaded.png' ) }}" height="45" alt="ACEmulator Logo" class="pull-right" /></h2>
 
-                    <form role="form" method="POST" action="{{ route( 'password.request' ) }}">
+                    <form role="form" method="post" action="{{ route( 'password.request' ) }}">
                         <div class="form-group">
                             <label for="email">E-Mail Address</label>
                             <input id="email" type="email" class="form-control" name="email" value="{{ email }}" required autofocus />

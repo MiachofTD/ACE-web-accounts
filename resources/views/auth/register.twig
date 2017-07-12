@@ -19,7 +19,7 @@
                 <div class="panel-body">
                     <h2>Register <img src="{{ public_asset( 'img/logoshaded.png' ) }}" height="45" alt="ACEmulator Logo" class="pull-right" /></h2>
 
-                    <form action="{{ route( 'auth.register' ) }}" method="POST" id="registration-form">
+                    <form action="{{ route( 'auth.register' ) }}" method="post" id="registration-form">
                         <div class="form-group">
                             <label for="account">Account Name:</label>
                             <input type="text" name="account" id="account" class="form-control" placeholder="Account" required autofocus />

@@ -31,6 +31,10 @@ Route::group( [ 'middleware' => 'secure' ], function () {
 
         Route::group( [ 'prefix' => 'characters' ], function () {
             Route::get( '/', [ 'as' => 'characters.all', 'uses' => 'CharacterController@all' ] );
+
+            Route::get( '/export', [ 'as' => 'characters.export', 'uses' => 'CharacterController@export' ] );
+            Route::post( '/export', [ 'uses' => 'CharacterController@exportCharacters' ] );
+
             Route::get( '/{id}', [ 'as' => 'characters.index', 'uses' => 'CharacterController@index' ] );
             Route::get( '/{id}/delete', [ 'as' => 'characters.delete', 'uses' => 'CharacterController@delete' ] );
             Route::get( '/{id}/restore', [ 'as' => 'characters.restore', 'uses' => 'CharacterController@restore' ] );
