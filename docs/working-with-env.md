@@ -90,7 +90,7 @@ sign up, all you need to do is add your key to this value for registration to be
 9. `AC_SERVER_HOSTNAME` - This is the domain name or IP address to your ACE server. You don't need to include `http://`
 or anything in front of it.
    * Example: `ac.example.com`
-10. `AC_SERVER_PORT - This is the port that your ACE server is listening on.
+10. `AC_SERVER_PORT` - This is the port that your ACE server is listening on.
    * Example: `9000`
 11. `LAYOUT_ANIMATED_BACKGROUND` - This application features an animated background on all the login/registration screens.
 This background is actually a youtube video that features various portals in interesting sights throughout the game.
@@ -99,7 +99,7 @@ This background is actually a youtube video that features various portals in int
 you need to set this to `mysql`.
 13. `DB_HOST` - This is the domain name or IP address to your ACE server's MySQL database. You don't need to include `http://`
 or anything in front of it.
-   * Example: `example.com'`
+   * Example: `example.com`
 14. `DB_PORT` - This is the port your mysql server is running on. Default is `3306`.
 15. `DB_USERNAME` - This is the username you use to connect to your database. You should use the same information that
 is found in the `config.json` file for your ACE server.
