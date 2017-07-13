@@ -2,6 +2,7 @@
 
 namespace Ace\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Ace\Models\Character;
 use Illuminate\Http\Request;
@@ -75,7 +76,14 @@ class CharacterController extends Controller
     public function exportCharacters( Request $request )
     {
         $export = export_characters( $request );
-        dd( $export );
+        $encoded = base64_encode( $export );
+
+        $hash = Hash::make( $encoded );
+
+        return response( $hash . $encoded, 200, [
+            'Content-Type' => 'text/plain',
+            'Content-Disposition' => 'attachment; filename="characters.txt"'
+        ] );
     }
 
     /**

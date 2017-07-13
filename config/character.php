@@ -58,7 +58,6 @@ return [
             'name' => 'ace_object_properties_string',
             'id' => 'strPropertyId'
         ],
-//        'texture_map' => [ 'name' => 'ace_object_texture_map_change' ],
         'position' => [ 'name' => 'ace_position' ],
     ],
     'properties' => [
