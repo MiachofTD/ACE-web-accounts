@@ -1,19 +1,21 @@
 <?php
-
 /**
  * Created by PhpStorm.
- * User: riggllm
- * Date: 5/28/17
- * Time: 10:03 PM
+ * User: lisa
+ * Date: 12/8/18
+ * Time: 9:52 PM
  */
 
 namespace Ace\Services;
 
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
 
-class Sha256Hasher implements HasherContract
+class PasswordHasher implements HasherContract
 {
     /**
+     * Password and salt are hashed together using sha512. The raw/binary output from that is base64 encoded. Using the
+     * raw/binary output matches the SHA512Managed class being used in the C# application to generate the hash.
+     *
      * @param string $value
      * @param array $options
      *
@@ -22,12 +24,16 @@ class Sha256Hasher implements HasherContract
     public function make( $value, array $options = [] )
     {
         if ( array_has( $options, 'salt' ) ) {
-            return hash( 'sha256', hash( 'sha256', $value ) . $options[ 'salt' ] );
+            $salt = base64_decode( $options[ 'salt' ] );
+            return base64_encode( hash( 'sha512', $value . $salt, true ) );
         }
-        return hash( 'sha256', $value );
+        return base64_encode( hash( 'sha512', $value ) );
     }
 
     /**
+     * Password and salt are hashed together using sha512. The raw/binary output from that is base64 encoded. Using the
+     * raw/binary output matches the SHA512Managed class being used in the C# application to generate the hash.
+     *
      * @param string $value
      * @param string $hashedValue
      * @param array $options
@@ -41,10 +47,11 @@ class Sha256Hasher implements HasherContract
         }
 
         if ( array_has( $options, 'salt' ) ) {
-            return ( hash( 'sha256', hash( 'sha256', $value ) . $options[ 'salt' ] ) === $hashedValue );
+            $salt = base64_decode( $options[ 'salt' ] );
+            return ( base64_encode( hash( 'sha512', $value . $salt, true ) ) === $hashedValue );
         }
 
-        return ( hash( 'sha256', $value ) === $hashedValue );
+        return ( base64_encode( hash( 'sha512', $value, true ) ) === $hashedValue );
     }
 
     /**

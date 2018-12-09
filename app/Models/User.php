@@ -27,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'account', 'email', 'password', 'salt', 'accesslevel',
+        'accountName', 'passwordHash', 'passwordSalt', 'accesslevel',
     ];
 
     /**
@@ -43,7 +43,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'salt',
+        'passwordHash', 'passwordSalt',
     ];
 
     /**
@@ -94,6 +94,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        return $this->getAttribute( 'passwordHash' );
+    }
+
+    /**
      * Update the model in the database.
      *
      * @param  array $parameters
@@ -103,11 +113,11 @@ class User extends Authenticatable
      */
     public function update( array $parameters = [], array $options = [] )
     {
-        $attributes = array_except( $parameters, [ 'password' ] );
+        $attributes = array_except( $parameters, [ 'passwordHash' ] );
 
-        $password = array_get( $parameters, 'password', '' );
+        $password = array_get( $parameters, 'passwordHash', '' );
         if ( !empty( $password ) ) {
-            $attributes[ 'password' ] = Hash::make( $password, [ 'salt' => $this->getAttribute( 'salt' ) ] );
+            $attributes[ 'passwordHash' ] = Hash::make( $password, [ 'salt' => $this->getAttribute( 'passwordSalt' ) ] );
         }
 
         return parent::update( $attributes, $options );

@@ -2,7 +2,6 @@
 
 namespace Ace\Providers;
 
-use Ace\Services\Sha256Hasher;
 use Ace\Services\CustomValidators;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;

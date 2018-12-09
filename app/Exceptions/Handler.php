@@ -51,7 +51,7 @@ class Handler extends ExceptionHandler
     {
         if ( $e instanceof TokenMismatchException ) {
             //If the session expired before the user could submit, send them back with an error message
-            $message = 'Oops! Seems you couldn\'t this form for a longtime. Please try again.';
+            $message = 'Oops! Seems you couldn\'t use this form for a longtime. Please try again.';
             if ( $request->route() == 'auth.login' ) {
                 $message = 'Oops! Seems you couldn\'t log in for a longtime. Please try again.';
             }

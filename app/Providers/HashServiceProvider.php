@@ -8,7 +8,7 @@
 
 namespace Ace\Providers;
 
-use Ace\Services\Sha256Hasher;
+use Ace\Services\PasswordHasher;
 use Illuminate\Support\ServiceProvider;
 
 class HashServiceProvider extends ServiceProvider
@@ -28,7 +28,7 @@ class HashServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton( 'hash', function () {
-            return new Sha256Hasher;
+            return new PasswordHasher;
         } );
     }
 

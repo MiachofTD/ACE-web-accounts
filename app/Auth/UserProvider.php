@@ -26,6 +26,6 @@ class UserProvider extends EloquentUserProvider
     {
         $plain = $credentials[ 'password' ];
 
-        return $this->hasher->check( $plain, $user->getAuthPassword(), [ 'salt' => $user->getAttribute( 'salt' ) ] );
+        return $this->hasher->check( $plain, $user->getAuthPassword(), [ 'salt' => $user->getAttribute( 'passwordSalt' ) ] );
     }
 }
