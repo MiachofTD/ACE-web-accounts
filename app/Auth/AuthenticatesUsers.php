@@ -17,6 +17,6 @@ trait AuthenticatesUsers
      */
     public function loginUsername()
     {
-        return 'account';
+        return 'accountName';
     }
 }

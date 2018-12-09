@@ -19,6 +19,8 @@ Route::group( [ 'middleware' => 'secure' ], function () {
     Route::post( '/login', [ 'uses' => 'Auth\LoginController@login' ] );
     Route::get( '/logout', [ 'as' => 'auth.logout', 'uses' => 'Auth\LoginController@logout' ] );
 
+    //Route::get( '/test', [ 'as' => 'test', 'uses' => 'HomeController@test' ] );
+
     //Registration
     Route::get( '/register', [ 'as' => 'auth.register', 'uses' => 'Auth\RegisterController@index' ] );
     Route::post( '/register', [ 'uses' => 'Auth\RegisterController@register' ] );

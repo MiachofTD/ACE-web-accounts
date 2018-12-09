@@ -58,7 +58,7 @@ class Controller extends BaseController
     {
         $serverStatus = Artisan::call( 'server:check-status', [
             '--server' => config( 'server.acserver.hostname', '' ),
-            '--port' => config( 'server.acserver.port', 9000 ),
+            '--port' => config( 'server.acserver.port', 9010 ),
         ] );
 
         return $this->addContext( 'serverStatus', $serverStatus );

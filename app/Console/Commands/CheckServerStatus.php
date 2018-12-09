@@ -40,6 +40,14 @@ class CheckServerStatus extends Command
         $server = $this->option( 'server' );
         $port = $this->option( 'port' );
 
+        if ( empty( $server ) ) {
+            $server = config( 'server.acserver.hostname' );
+        }
+
+        if ( empty( $port ) ) {
+            $port = config( 'server.acserver.port' );
+        }
+
         //If no server hostname or port has been found, exit now
         if ( empty( $server ) || empty( $port ) ) {
             return 0;
