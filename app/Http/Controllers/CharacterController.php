@@ -15,9 +15,10 @@ class CharacterController extends Controller
      */
     public function index( $id )
     {
+        /** @var Character $character */
         $character = character()
-            ->where( 'accountId', auth()->id() )
-            ->where( 'guid', $id )
+            ->where( 'account_id', auth()->id() )
+            ->where( 'id', $id )
             ->first();
 
         if ( !$character instanceof Character ) {
@@ -25,6 +26,7 @@ class CharacterController extends Controller
         }
 
         $this->addContext( 'character', $character );
+
         return response()->view( 'characters.index', $this->context );
     }
 
@@ -33,13 +35,14 @@ class CharacterController extends Controller
      */
     public function all()
     {
+        /** @var Character $character */
         $characters = character()
-            ->where( 'accountId', auth()->id() )
-            ->where( 'deleted', 0 ) //Make sure we don't include any deleted characters
+            ->where( 'account_id', auth()->id() )
+            ->where( 'is_deleted', 0 )//Make sure we don't include any deleted characters
             ->get();
 
         /** @var $characters Collection */
-        $characters->each( function( $item, $key ) {
+        $characters->each( function ( $item, $key ) {
             /** @var Character $item */
             $item->getProperties( 'int' );
         } );
@@ -56,11 +59,14 @@ class CharacterController extends Controller
      */
     public function delete( $id )
     {
+        /** @var Character $character */
         $character = character()->find( $id );
 
         $now = Carbon::now()->addHour();
 
         $character->updateProperty( 'delete-date', $now->format( 'U' ) );
+        $character->setAttribute( 'is_Deleted', true )
+            ->save();
 
         return redirect()->back()->with( 'message.success', $character->property( 'name' ) . ' will be deleted in 60 minutes.' );
     }
@@ -72,6 +78,7 @@ class CharacterController extends Controller
      */
     public function restore( $id )
     {
+        /** @var Character $character */
         $character = character()->find( $id );
 
         $character->updateProperty( 'delete-date', 0 );

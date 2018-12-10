@@ -13,7 +13,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group( [ 'middleware' => 'secure' ], function () {
+Route::group( [ 'middleware' => [ 'secure' ] ], function () {
     //Login
     Route::get( '/login', [ 'as' => 'auth.login', 'uses' => 'Auth\LoginController@index' ] );
     Route::post( '/login', [ 'uses' => 'Auth\LoginController@login' ] );
@@ -25,7 +25,7 @@ Route::group( [ 'middleware' => 'secure' ], function () {
     Route::get( '/register', [ 'as' => 'auth.register', 'uses' => 'Auth\RegisterController@index' ] );
     Route::post( '/register', [ 'uses' => 'Auth\RegisterController@register' ] );
 
-    Route::group( [ 'middleware' => 'check.login' ], function () {
+    Route::group( [ 'middleware' => [ 'auth' ] ], function () {
         Route::get( '/', [ 'as' => 'dashboard', 'uses' => 'HomeController@index' ] );
 
         Route::get( 'profile', [ 'as' => 'profile.index', 'uses' => 'ProfileController@index' ] );

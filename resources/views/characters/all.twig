@@ -17,12 +17,12 @@
                         {% if characters.count() > 0 %}
                             <ul class="characters list-group">
                                 {% for character in characters %}
-                                    <li id="character-{{ character.guid }}" class="character list-group-item {{ character.property( 'delete-date' ) is not empty ? 'list-group-item-danger' : '' }}">
+                                    <li id="character-{{ character.id }}" class="character list-group-item {{ character.property( 'delete-date' ) is not empty ? 'list-group-item-danger' : '' }}">
                                         {% if character.property( 'delete-date' ) is not empty %}
-                                            <a class="btn btn-warning pull-right" href="{{ route( 'characters.restore', { id: character.guid } ) }}">restore</a>
+                                            <a class="btn btn-warning pull-right" href="{{ route( 'characters.restore', { id: character.id } ) }}">restore</a>
                                         {% else %}
-                                            <a class="btn btn-danger pull-right" href="#" data-href="{{ route( 'characters.delete', { id: character.guid } ) }}" data-toggle="modal" data-target="#confirm-delete">delete</a>
-                                            {#<a class="btn btn-danger pull-right" href="{{ route( 'characters.delete', { id: character.guid } ) }}">delete</a>#}
+                                            <a class="btn btn-danger pull-right" href="#" data-href="{{ route( 'characters.delete', { id: character.id } ) }}" data-toggle="modal" data-target="#confirm-delete">delete</a>
+                                            {#<a class="btn btn-danger pull-right" href="{{ route( 'characters.delete', { id: character.id } ) }}">delete</a>#}
                                         {% endif %}
 
                                         <h3 class="list-group-item-heading">
@@ -34,13 +34,13 @@
                                         </h3>
 
                                         <p>
-                                            Level {{ character.property( 'level' ) }} {{ character.property( 'gender' ) }} {{ character.property( 'race' )|capitalize }}
+                                            Level {{ character.property( 'level', 1 ) }} {{ character.property( 'gender', 'other' ) }} {{ character.property( 'race', 'unknown' )|capitalize }}
                                         </p>
                                         <div>
-                                            Birth Date: {{ character.property( 'birthdate' ).format( 'm/d/Y' ) }}<br />
-                                            Time Played: {{ char.ageForHumans( character.property( 'age' ) ) }}<br />
-                                            Deaths: {{ character.property( 'deaths' ) }}<br />
-                                            Skill Credits Available: {{ character.property( 'spendable-skill-credits' ) }}
+                                            Birth Date: {{ character.property( 'birthdate', 0 ).format( 'm/d/Y' ) }}<br />
+                                            Time Played: {{ char.ageForHumans( character.property( 'age', 0 ) ) }}<br />
+                                            Deaths: {{ character.property( 'deaths', 0 ) }}<br />
+                                            Skill Credits Available: {{ character.property( 'spendable-skill-credits', 0 ) }}
                                         </div>
                                     </li>
                                 {% endfor %}

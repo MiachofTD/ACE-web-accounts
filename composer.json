@@ -32,5 +32,8 @@
         "psr-4": {
             "Ace\\": "app/"
         }
+    },
+    "require-dev": {
+        "laravel/homestead": "5.2"
     }
 }

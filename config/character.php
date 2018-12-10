@@ -8,53 +8,46 @@
 
 return [
     'tables' => [
-        'object' => [ 'name' => 'ace_object' ],
-        'animation' => [ 'name' => 'ace_object_animation_change' ],
-        'palette' => [ 'name' => 'ace_object_palette_change' ],
+        'object' => [ 'name' => 'biota' ],
+        'animation' => [ 'name' => 'biota_properties_anim_part' ],
+        'palette' => [ 'name' => 'biota_properties_palette' ],
+        'body_part' => [ 'name' => 'biota_properties_body_part' ],
         'properties_attribute' => [
-            'name' => 'ace_object_properties_attribute',
-            'id' => 'attributeId'
+            'name' => 'biota_properties_attribute',
         ],
         'properties_attribute2nd' => [
-            'name' => 'ace_object_properties_attribute2nd',
-            'id' => 'attribute2ndId'
+            'name' => 'biota_properties_attribute_2nd',
         ],
         'properties_bigint' => [
-            'name' => 'ace_object_properties_bigint',
-            'id' => 'bigIntPropertyId'
+            'name' => 'biota_properties_int64',
         ],
         'properties_bool' => [
-            'name' => 'ace_object_properties_bool',
-            'id' => 'boolPropertyId'
+            'name' => 'biota_properties_bool',
         ],
         'properties_did' => [
-            'name' => 'ace_object_properties_did',
-            'id' => 'didPropertyId'
+            'name' => 'biota_properties_d_i_d',
         ],
         'properties_double' => [
-            'name' => 'ace_object_properties_double',
-            'id' => 'dblPropertyId'
+            'name' => 'biota_properties_double',
         ],
         'properties_iid' => [
-            'name' => 'ace_object_properties_iid',
-            'id' => 'iidPropertyId'
+            'name' => 'biota_properties_i_i_d',
         ],
         'properties_int' => [
-            'name' => 'ace_object_properties_int',
-            'id' => 'intPropertyId'
+            'name' => 'biota_properties_int',
         ],
         'properties_skill' => [
-            'name' => 'ace_object_properties_skill',
+            'name' => 'biota_properties_skill',
         ],
         'properties_spell' => [
-            'name' => 'ace_object_properties_spell',
+            'name' => 'biota_properties_spell_book',
         ],
         'properties_string' => [
-            'name' => 'ace_object_properties_string',
-            'id' => 'strPropertyId'
+            'name' => 'biota_properties_string',
+            'id' => 'type'
         ],
-        'texture_map' => [ 'name' => 'ace_object_texture_map_change' ],
-        'position' => [ 'name' => 'ace_position' ],
+        'texture_map' => [ 'name' => 'biota_texture_map' ],
+        'position' => [ 'name' => 'biota_properties_position' ],
         'weenie_class' => [ 'name' => 'ace_weenie_class' ],
     ],
     'properties' => [

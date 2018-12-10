@@ -21,14 +21,14 @@ class Character extends Model
      *
      * @var string
      */
-    protected $table = 'vw_ace_character';
+    protected $table = 'character';
 
     /**
      * The primary key for the model.
      *
      * @var string
      */
-    protected $primaryKey = 'guid';
+    protected $primaryKey = 'id';
 
     /**
      * Indicates if the model should be timestamped.
@@ -78,20 +78,17 @@ class Character extends Model
             return $this->{$table . 'Properties'};
         }
 
-        $field = config( 'character.tables.properties_' . $table . '.id', '' );
-
-        if ( empty( $field ) ) {
-            $field = $table . 'Id';
-        }
+        $tableName = config( 'character.tables.properties_' . $table . '.name', 'biota_properties_' . $table );
+        $field = config( 'character.tables.properties_' . $table . '.id', 'type' );
 
         $properties = DB::connection( $this->connection )
-            ->table( 'ace_object_properties_' . $table )
-            ->where( 'aceObjectId', $this->getAttribute( 'guid' ) )
+            ->table( $tableName )
+            ->where( 'object_id', $this->getAttribute( 'id' ) )
             ->get();
         foreach ( $properties as $property ) {
-            array_set( $this->{$table . 'Properties'}, $property->{$field}, $property->propertyValue );
+            array_set( $this->{$table . 'Properties'}, $property->{$field}, $property->value );
             if ( $table == 'bool' ) {
-                array_set( $this->{$table . 'Properties'}, $property->{$field}, filter_var( $property->propertyValue, FILTER_VALIDATE_BOOLEAN ) );
+                array_set( $this->{$table . 'Properties'}, $property->{$field}, filter_var( $property->value, FILTER_VALIDATE_BOOLEAN ) );
             }
         }
 
@@ -100,24 +97,28 @@ class Character extends Model
 
     /**
      * @param string $name
+     * @param string $default
      *
      * @return string|Carbon|\DateInterval
      */
-    public function property( $name )
+    public function property( $name, $default = '' )
     {
         $prop = config( 'character.properties.' . $name, [] );
 
         if ( empty( $prop ) ) {
-            return '';
+            return $default;
         }
 
         try {
             $property = $this->getProperty( $prop[ 'id' ], $prop[ 'table' ] );
+            if ( empty( $property ) ) {
+                $property = $default;
+            }
 
             //Because apparently Carbon can't parse a timestamp without help
             if ( ( $name == 'birthdate' || $name == 'delete-date' ) ) {
                 if ( $property == 0 ) {
-                    return '';
+                    return $default;
                 }
 
                 return Carbon::createFromTimestamp( $property );
@@ -137,13 +138,15 @@ class Character extends Model
                 return Carbon::parse( $property );
             }
             else if ( array_has( $prop, 'options' ) ) {
-                return array_get( $prop[ 'options' ], $property, '' );
+                return array_get( $prop[ 'options' ], $property, $default );
             }
 
             return $property;
         }
         catch ( Exception $e ) {
-            return '';
+            logger( $e->getMessage(), [ 'error' ] );
+
+            return $default;
         }
     }
 
@@ -178,13 +181,13 @@ class Character extends Model
         if ( !array_has( $prop, 'table' ) ) {
             return false;
         }
-
-        $field = config( 'character.tables.properties_' . array_get( $prop, 'table' ) . '.id', '' );
+        $table = config( 'character.tables.properties_' . array_get( $prop, 'table' ) );
+        $field = array_get( $table, 'id', 'type' );
 
         return DB::connection( $this->connection )
-            ->table( 'ace_object_properties_' . array_get( $prop, 'table' ) )
-            ->where( 'aceObjectId', $this->getAttribute( 'guid' ) )
+            ->table( array_get( $table, 'name', '' ) )
+            ->where( 'object_id', $this->getAttribute( 'id' ) )
             ->where( $field, array_get( $prop, 'id' ) )
-            ->update( [ 'propertyValue' => $value ] );
+            ->update( [ 'value' => $value ] );
     }
 }

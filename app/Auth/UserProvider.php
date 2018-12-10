@@ -17,8 +17,8 @@ class UserProvider extends EloquentUserProvider
     /**
      * Validate a user against the given credentials.
      *
-     * @param  \Illuminate\Contracts\Auth\Authenticatable|User $user
-     * @param  array                                           $credentials
+     * @param  UserContract|User $user
+     * @param  array             $credentials
      *
      * @return bool
      */

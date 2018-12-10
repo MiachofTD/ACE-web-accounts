@@ -1,0 +1,19 @@
+ip: 192.168.11.93
+memory: 2048
+cpus: 1
+provider: virtualbox
+authorize: ~/.ssh/id_rsa_PERSONAL.pub
+keys:
+    - ~/.ssh/id_rsa_PERSONAL
+folders:
+    -
+        map: /Users/lisa/GitHub/ACE-web-accounts
+        to: /home/vagrant/Code/ace-web-accounts
+sites:
+    -
+        map: ace-web.vm
+        to: /home/vagrant/Code/ace-web-accounts/public
+#databases:
+#    - homestead
+name: ace-web-accounts
+hostname: ace-web-accounts
