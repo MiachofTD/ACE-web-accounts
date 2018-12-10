@@ -152,6 +152,10 @@ class GitHubEvent
             case 'ForkEvent':
                 return array_get( $this->payload, 'forkee.html_url', '' );
             break;
+
+            case 'IssuesEvent':
+                return array_get( $this->payload, 'issue.html_url' );
+            break;
         }
 
         return '#';
@@ -200,6 +204,14 @@ class GitHubEvent
                 $fork = array_get( $this->payload, 'forkee.full_name', '' );
 
                 return '[' . $repo . '] Fork created: ' . $fork;
+            break;
+
+            case 'IssuesEvent':
+                $repo = array_get( $this->repo, 'name', '' );
+                $issueNumber = array_get( $this->payload, 'issue.number', 1 );
+                $title = array_get( $this->payload, 'issue.title', '' );
+
+                return '[' . $repo . '] Issue Created: #' . $issueNumber . ' ' . $title;
             break;
         }
 
