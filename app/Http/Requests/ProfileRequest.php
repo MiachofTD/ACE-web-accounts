@@ -30,7 +30,6 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'email|unique:account,email,' . auth()->user()->getAuthIdentifier(),
             'password' => 'present|min:6|confirmed',
             'password_confirmation' => 'min:6',
         ];

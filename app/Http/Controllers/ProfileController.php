@@ -23,7 +23,7 @@ class ProfileController extends Controller
     public function update( ProfileRequest $request )
     {
         try {
-            auth()->user()->update( $request->only( 'email', 'password' ) );
+            auth()->user()->update( $request->only( 'password' ) );
         }
         catch ( Exception $e ) {
             return redirect()->route( 'profile.index' )->with( 'message.error', $e->getMessage() );

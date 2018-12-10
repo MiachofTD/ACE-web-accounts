@@ -122,7 +122,7 @@ class User extends Authenticatable
     {
         $attributes = array_except( $parameters, [ 'passwordHash' ] );
 
-        $password = array_get( $parameters, 'passwordHash', '' );
+        $password = array_get( $parameters, 'password', '' );
         if ( !empty( $password ) ) {
             $attributes[ 'passwordHash' ] = Hash::make( $password, [ 'salt' => $this->getAttribute( 'passwordSalt' ) ] );
         }
