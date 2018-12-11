@@ -11,4 +11,5 @@ return [
         'hostname' => env( 'AC_SERVER_HOSTNAME', '' ),
         'port' => env( 'AC_SERVER_PORT', 9000 ),
     ],
+    'shared_host' => env( 'APP_SHARED_HOSTING', false ),
 ];

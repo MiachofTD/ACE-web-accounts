@@ -72,7 +72,15 @@ if ( !function_exists( 'public_asset' ) ) {
      */
     function public_asset( $path, $secure = null )
     {
+        $sharedHost = config( 'server.shared_host' );
         $cacheBuster = asset_cache_buster( base_path( 'public/' . ( $path ? ltrim( $path, '/' ) : '' ) ) );
+
+        //If we're in a shared hosting environment, and we've fixed it so that the public directory isn't where the site
+        //is hosted out of, put the public part of the path in the public URLs.
+        if ( $sharedHost ) {
+            $path = 'public/' . $path;
+        }
+
         $url = asset( $path, $secure );
 
         if ( $cacheBuster ) {
