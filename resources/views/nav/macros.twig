@@ -1,26 +1,25 @@
 {% macro menuItem(route, parameters, current, name, disabled) %}
-    <li class="nav {% if route == current.getName() %}active{% endif %}{% if disabled|default(false) %} disabled{% endif %}">
-        <a href="{% if disabled|default(false) == false %}{{ route( route, parameters ) }}{% else %}#{% endif %}">
+    <li class="nav-item{% if route == current.getName() %} active{% endif %}{% if disabled %} disabled{% endif %}">
+        <a class="nav-link text-light" href="{% if not disabled %}{{ route( route, parameters ) }}{% else %}#{% endif %}" title="{{ name }}">
             {{ name }}
         </a>
     </li>
 {% endmacro %}
 
 {% macro dropdownOpen(route, partialRoute, name, class) %}
-    <li class="dropdown {{ class }}-menu{% if partialRoute in route %} active{% endif %}">
-        <a href="#" class="dropdown-toggle" id="{{ class }}-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <li class="dropdown nav-item {{ class }}-menu{% if partialRoute in route.getName() %} active{% endif %}">
+        <a href="#" class="nav-link text-light dropdown-toggle" id="{{ class }}-menu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ name }} <span class="caret"></span>
         </a>
-        <ul class="inverse-dropdown dropdown-menu" role="menu">
+        <div class="dropdown-menu bg-dark">
 {% endmacro %}
 
 {% macro dropdownItem(route, parameters, current, name, class, disabled) %}
-    <li class="{{ class }}-menu{% if route == current.getName() %} active{% endif %}{% if disabled|default(false) %} disabled{% endif %}">
-        <a href="{{ route( route ) }}">{{ name }}</a>
-    </li>
+    {% set linkUrl = route( route, parameters ) %}
+    <a href="{{ linkUrl }}" class="{{ class }}-menu bg-dark text-light dropdown-item{% if linkUrl == url_current() %} active{% endif %}{% if disabled %} disabled{% endif %}" title="{{ name }}">{{ name }}</a>
 {% endmacro %}
 
 {% macro dropdownClose() %}
-    </ul>
-</li>
+        </div>
+    </li>
 {% endmacro %}

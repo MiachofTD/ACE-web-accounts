@@ -8,6 +8,7 @@
 
 namespace Ace\Models\Components;
 
+use Parsedown;
 use Carbon\Carbon;
 
 class GitHubEvent
@@ -149,12 +150,12 @@ class GitHubEvent
                 return 'https://github.com/' . $repo . '/commit/' . $head;
             break;
 
-            case 'ForkEvent':
-                return array_get( $this->payload, 'forkee.html_url', '' );
-            break;
-
             case 'IssuesEvent':
                 return array_get( $this->payload, 'issue.html_url' );
+            break;
+
+            case 'ReleaseEvent':
+                return array_get( $this->payload, 'release.html_url', '' );
             break;
         }
 
@@ -191,7 +192,7 @@ class GitHubEvent
             break;
 
             case 'PushEvent':
-                $repo = $this->getRepoFromOrg();
+                $repo = array_get( $this->repo, 'name', '' );
                 $branch = $this->getBranchFromHead();
 
                 $count = array_get( $this->payload, 'size', 0 );
@@ -199,20 +200,22 @@ class GitHubEvent
                 return '[' . $repo . ':' . $branch . '] ' . $count . ' new commit(s)';
             break;
 
-            case 'ForkEvent':
-                $repo = array_get( $this->repo, 'name', '' );
-                $fork = array_get( $this->payload, 'forkee.full_name', '' );
-
-                return '[' . $repo . '] Fork created: ' . $fork;
-            break;
-
             case 'IssuesEvent':
                 $repo = array_get( $this->repo, 'name', '' );
                 $issueNumber = array_get( $this->payload, 'issue.number', 1 );
                 $title = array_get( $this->payload, 'issue.title', '' );
+                $action = array_get( $this->payload, 'action' );
 
-                return '[' . $repo . '] Issue Created: #' . $issueNumber . ' ' . $title;
+                return '[' . $repo . '] Issue ' . ucwords( $action ) . ': #' . $issueNumber . ' ' . $title;
             break;
+
+            case 'ReleaseEvent':
+                $repo = array_get( $this->repo, 'name', '' );
+                $ref = array_get( $this->payload, 'release.tag_name', '' );
+
+                return '[' . $repo . '] Release: ' . $ref;
+            break;
+
         }
 
         return '';
@@ -223,6 +226,8 @@ class GitHubEvent
      */
     public function getDescription()
     {
+        $parsedown = new Parsedown();
+
         $description = '';
         switch ( $this->type ) {
             case 'DeleteEvent':
@@ -233,15 +238,19 @@ class GitHubEvent
             break;
 
             case 'IssueCommentEvent':
-                $description = array_get( $this->payload, 'comment.body' );
+                $description = '<div class="markdown border rounded border-info">' . $parsedown->text( array_get( $this->payload, 'comment.body' ) ) . '</div>';
             break;
 
             case 'PullRequestEvent':
-                $description = array_get( $this->payload, 'pull_request.body', '' );
+                $status = array_get( $this->payload, 'action', '' );
+
+                if ( $status != 'closed' ) {
+                    $description = '<div class="markdown border rounded border-info">' . $parsedown->text( array_get( $this->payload, 'pull_request.body', '' ) ) . '</div>';
+                }
             break;
 
             case 'PullRequestReviewCommentEvent':
-                $description = array_get( $this->payload, 'comment.body', '' );
+                $description = '<div class="markdown border rounded border-info">' . $parsedown->text( array_get( $this->payload, 'comment.body', '' ) ) . '</div>';
             break;
 
             case 'PushEvent':
@@ -256,10 +265,19 @@ class GitHubEvent
                     $texts[] = $text;
                 }
 
-                $description = implode( '<br />', $texts );
+                $description = '<div class="markdown border rounded border-info">' . $parsedown->text( implode( '<br />', $texts ) ) . '</div>';
+            break;
+
+            case 'IssuesEvent':
+                $description = '<div class="markdown border rounded border-info">' . $parsedown->text( array_get( $this->payload, 'issue.body', '' ) ) . '</div>';
+            break;
+
+            case 'ReleaseEvent':
+                $description = '<div class="markdown border rounded border-info">' . $parsedown->text( array_get( $this->payload, 'release.body', '' ) ) . '</div>';
             break;
         }
 
-        return str_replace( [ "\r\n", "\n" ], '<br />', $description );
+        return '<div class="' . $this->type . '">' . $description . '</div>';
+        //return str_replace( [ "\r\n", "\n" ], '<br />', $description );
     }
 }

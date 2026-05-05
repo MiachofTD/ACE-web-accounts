@@ -6,7 +6,7 @@ body {
     margin: auto 5px; }
     body ul.events > li:nth-child(even), body ul.characters > li:nth-child(even) {
       background-color: #ddd; }
-  body .panel-default {
+  body .panel-default, body .card {
     background-color: rgba(255, 255, 255, 0.6); }
 
 .auth {
@@ -30,6 +30,9 @@ body {
 .navbar .navbar-brand {
   padding: 6px 15px; }
 
+.navbar .nav-item {
+  height: 100%; }
+
 .navbar .status-up {
   background-color: green; }
   .navbar .status-up a {
@@ -39,17 +42,6 @@ body {
   background-color: red; }
   .navbar .status-down a {
     color: #fff !important; }
-
-.navbar .inverse-dropdown {
-  background-color: #222;
-  border-color: #080808; }
-  .navbar .inverse-dropdown > li > a {
-    color: #999; }
-    .navbar .inverse-dropdown > li > a:hover {
-      color: #fff;
-      background-color: #000; }
-  .navbar .inverse-dropdown > .divider {
-    background-color: #000; }
 
 .character h3.deleted {
   color: #f00; }
@@ -126,5 +118,16 @@ body {
 @media all and (max-width: 500px) {
   .vid-info .acronym {
     display: none; } }
+
+.markdown {
+  padding: 2px; }
+  .markdown h1 {
+    font-size: 24px; }
+  .markdown h2 {
+    font-size: 22px; }
+  .markdown h3 {
+    font-size: 18px; }
+  .markdown h4 {
+    font-size: 16px; }
 
 /*# sourceMappingURL=app.css.map */

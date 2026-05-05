@@ -17,7 +17,8 @@
         "rcrowe/twigbridge": "^0.9",
         "nesbot/carbon": "^1.22",
         "guzzlehttp/guzzle": "~6.0",
-        "doctrine/dbal": "^2.5"
+        "doctrine/dbal": "^2.5",
+        "erusev/parsedown": "^1.7"
     },
     "autoload": {
         "classmap": [

@@ -19,6 +19,12 @@ class GitHub extends ApiRequest
      */
     protected $configKey = 'github.url';
 
+    protected $ignoreEvents = [
+        'WatchEvent',
+        'CreateEvent',
+        'ForkEvent',
+    ];
+
     /**
      * Set the current GitHub API version
      * @see https://developer.github.com/v3/#current-version
@@ -46,11 +52,15 @@ class GitHub extends ApiRequest
         $this->reset();
 
         $body = $results->getBody();
-
+//dd( $body );
         $events = collect( [] );
 
         foreach ( $body as $eventData ) {
             $event = new GitHubEvent( $eventData[ 'id' ], $eventData );
+
+            if ( in_array( $event->getType(), $this->ignoreEvents ) ) {
+                continue;
+            }
 
             $events->put( $event->id, $event );
         }

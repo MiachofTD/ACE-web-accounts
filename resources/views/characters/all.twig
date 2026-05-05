@@ -7,15 +7,15 @@
 {% block bodyclass %}characters{% endblock %}
 
 {% block content %}
-    <div class="row top-buffer">
+    <div class="row mt-2">
         <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-body">
                     <h2>My Characters</h2>
 
                     <div class="row">
                         {% if characters.count() > 0 %}
-                            <ul class="characters list-group">
+                            <ul class="characters list-group col-md-12">
                                 {% for character in characters %}
                                     <li id="character-{{ character.id }}" class="character list-group-item {{ character.property( 'delete-date' ) is not empty ? 'list-group-item-danger' : '' }}">
                                         {% if character.property( 'delete-date' ) is not empty %}

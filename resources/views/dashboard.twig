@@ -5,15 +5,15 @@
 {% block bodyclass %}dashboard{% endblock %}
 
 {% block content %}
-    <div class="row top-buffer">
+    <div class="row mt-2">
         <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h2>Latest Updates</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h2 >Latest Updates</h2>
 
                     <div class="row">
                         {% if github.count() > 0 %}
-                            <ul class="events list-group">
+                            <ul class="events list-group col-md-12">
                                 {% for event in github %}
                                     <li id="event-{{ event.id }}" class="event list-group-item">
                                         <a href="https://github.com/{{ event.getLogin() }}">{{ event.getUsername() }}</a> {{ event.createdAt.timezone( 'America/Chicago' ).format( 'm/d/Y g:i:s a' ) }}<br />
